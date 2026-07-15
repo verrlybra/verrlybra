@@ -8,10 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --plum: #1c1116; --wine: #6b1f2a; --wine-light: #8c3341; --gold: #c9a66b;
-    --gold-soft: #e3d3ae; --ivory: #f7f2ec; --blush: #e9d2ca; --charcoal: #2a2024; --line: rgba(28,17,22,0.12);
-  }
+  :root{ --plum: #1c1116; --wine: #6b1f2a; --wine-light: #8c3341; --gold: #c9a66b; --gold-soft: #e3d3ae; --ivory: #f7f2ec; --blush: #e9d2ca; --charcoal: #2a2024; --line: rgba(28,17,22,0.12); }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{background: var(--ivory); color: var(--charcoal); font-family:'Manrope', sans-serif; font-weight:400; line-height:1.6; overflow-x:hidden;}
@@ -77,7 +74,32 @@
   </nav>
 </header>
 
-<!-- Rest of your page content remains here -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-eyebrow">The Second-Skin Edit</span>
+      <h1>Support that <em>disappears</em> into the wearing.</h1>
+      <p>Verrly designs bras from breathable silk-blend lace and second-skin microfiber — built to feel like nothing at all, and look like everything.</p>
+      <div class="hero-actions">
+        <a href="shop.html" target="_blank" class="btn-primary">Shop the Collection</a>
+        <a href="fabric.html" target="_blank" class="btn-ghost">Our Fabric Story</a>
+      </div>
+    </div>
+    <div class="ribbon-wrap">
+      <svg viewBox="0 0 420 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 60 C 140 20, 260 20, 360 90 C 300 140, 340 210, 300 260 C 250 220, 180 240, 160 300 C 220 330, 210 400, 150 430" stroke="#c9a66b" stroke-width="1.5" stroke-opacity="0.55"/>
+        <path d="M70 90 C 160 55, 250 60, 330 120 C 280 165, 305 220, 275 260 C 235 225, 185 245, 175 295 C 220 320, 210 380, 165 405" stroke="#e3d3ae" stroke-width="1" stroke-opacity="0.35"/>
+        <ellipse cx="210" cy="230" rx="150" ry="150" fill="url(#g1)" opacity="0.5"/>
+        <defs>
+          <radialGradient id="g1" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stop-color="#8c3341" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#8c3341" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</section>
 
 <script>
   const menuToggle = document.getElementById('menuToggle');
