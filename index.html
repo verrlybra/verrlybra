@@ -696,9 +696,240 @@
     link.addEventListener('click', () => {
       navLinks.classList.remove('active');
       document.body.classList.remove('menu-open');
+      
     });
   });
 </script>
+
+</body>
+</html>
+<header>
+  <nav>
+    <div class="logo"><a href="index.html">VERRLY</a></div>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">Our Story</a>
+      <a href="shop.html">Shop All</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="shop.html" class="nav-cta">Shop Now</a>
+    
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
+</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story — Verrly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum: #1c1116; --wine: #6b1f2a; --wine-light: #8c3341; --gold: #c9a66b;
+    --gold-soft: #e3d3ae; --ivory: #f7f2ec; --blush: #e9d2ca; --charcoal: #2a2024; --line: rgba(28,17,22,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background: var(--ivory); color: var(--charcoal); font-family:'Manrope', sans-serif;}
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond', serif; font-weight:500;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  header { position: relative; max-width: 1180px; margin: 0 auto; width: 100%; }
+  nav{display:flex; align-items:center; justify-content:space-between; padding:22px 32px;}
+  .logo{font-family:'Cormorant Garamond', serif; font-size:1.7rem; letter-spacing:0.12em;}
+  .nav-links{display:flex; gap:36px; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase;}
+  .nav-cta{border:1px solid var(--charcoal); padding:9px 20px; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase;}
+  .content-hero {text-align: center; padding: 100px 32px 60px;}
+  .content-hero h1 {font-size: clamp(2.5rem, 5vw, 4rem); color: var(--wine); margin-bottom: 20px;}
+  .content-body {max-width: 700px; margin: 0 auto 100px; font-size: 1.1rem; line-height: 1.8; opacity: 0.85;}
+  footer{background:var(--charcoal); color:rgba(247,242,236,0.55); padding:60px 32px 30px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><a href="index.html">VERRLY</a></div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" style="color: var(--wine); font-weight: 700;">Our Story</a>
+      <a href="shop.html">Shop All</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="shop.html" class="nav-cta">Shop Now</a>
+  </nav>
+</header>
+
+<section class="content-hero">
+  <div class="wrap">
+    <h1>Our Philosophy</h1>
+    <p class="serif" style="font-size: 1.5rem; font-style: italic; color: var(--gold); margin-bottom: 40px;">Woven into the skin.</p>
+  </div>
+</section>
+
+<section class="content-body">
+  <p>Verrly was founded on the radical idea that undergarments shouldn't demand your attention throughout the day. We eliminate heavy hardware and unnecessary restrictive bindings, replacing them with breathable silk-stretch fibers meticulously engineered to trace your natural lines.</p>
+  <br>
+  <p>Quiet luxury isn’t about being noticed; it’s about how you feel when no one is watching. Every collection is wear-tested extensively across dozens of body silhouettes to guarantee long-lasting, second-skin structural integrity.</p>
+</section>
+
+<footer>
+  <div class="wrap" style="text-align: center; font-size: 0.8rem;">
+    <span>© 2026 Verrly. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop All — Verrly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum: #1c1116; --wine: #6b1f2a; --wine-light: #8c3341; --gold: #c9a66b;
+    --gold-soft: #e3d3ae; --ivory: #f7f2ec; --blush: #e9d2ca; --charcoal: #2a2024; --line: rgba(28,17,22,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background: var(--ivory); color: var(--charcoal); font-family:'Manrope', sans-serif;}
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:500;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  header { position: relative; max-width: 1180px; margin: 0 auto; width: 100%; }
+  nav{display:flex; align-items:center; justify-content:space-between; padding:22px 32px;}
+  .logo{font-family:'Cormorant Garamond', serif; font-size:1.7rem; letter-spacing:0.12em;}
+  .nav-links{display:flex; gap:36px; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase;}
+  .nav-cta{border:1px solid var(--charcoal); padding:9px 20px; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase;}
+  
+  .shop-header { text-align: center; padding: 60px 0; }
+  .shop-header h1 { font-size: 3rem; color: var(--plum); }
+  .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-bottom: 100px; }
+  .item-card { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 30px; text-align: center; }
+  .item-box { background: linear-gradient(160deg, var(--blush) 0%, #f4e4dd 100%); height: 200px; margin-bottom: 20px; display:flex; align-items:center; justify-content:center;}
+  footer{background:var(--charcoal); color:rgba(247,242,236,0.55); padding:60px 32px 30px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><a href="index.html">VERRLY</a></div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">Our Story</a>
+      <a href="shop.html" style="color: var(--wine); font-weight: 700;">Shop All</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="shop.html" class="nav-cta">Shop Now</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="shop-header">
+    <h1>The Online Catalog</h1>
+    <p style="opacity:0.6; margin-top:10px;">Carefully curated structural configurations.</p>
+  </div>
+
+  <div class="catalog-grid">
+    <div class="item-card">
+      <div class="item-box"><strong style="color:var(--wine)">Silhouette I</strong></div>
+      <h3>The Signature Balconette</h3>
+      <p style="color:var(--gold); font-weight:600; margin-top:10px;">$62</p>
+    </div>
+    <div class="item-card">
+      <div class="item-box"><strong style="color:var(--wine)">Silhouette II</strong></div>
+      <h3>The Second-Skin T-Shirt Bra</h3>
+      <p style="color:var(--gold); font-weight:600; margin-top:10px;">$58</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap" style="text-align: center; font-size: 0.8rem;">
+    <span>© 2026 Verrly. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Verrly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum: #1c1116; --wine: #6b1f2a; --wine-light: #8c3341; --gold: #c9a66b;
+    --gold-soft: #e3d3ae; --ivory: #f7f2ec; --blush: #e9d2ca; --charcoal: #2a2024; --line: rgba(28,17,22,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background: var(--ivory); color: var(--charcoal); font-family:'Manrope', sans-serif;}
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:500;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  header { position: relative; max-width: 1180px; margin: 0 auto; width: 100%; }
+  nav{display:flex; align-items:center; justify-content:space-between; padding:22px 32px;}
+  .logo{font-family:'Cormorant Garamond', serif; font-size:1.7rem; letter-spacing:0.12em;}
+  .nav-links{display:flex; gap:36px; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase;}
+  .nav-cta{border:1px solid var(--charcoal); padding:9px 20px; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase;}
+  
+  .contact-wrap {max-width: 600px; margin: 80px auto 120px; text-align: center; padding: 0 20px;}
+  .contact-wrap h1 {font-size: 3rem; margin-bottom: 20px; color: var(--wine);}
+  .input-field {width: 100%; padding: 16px; margin-bottom: 16px; background: #fff; border: 1px solid var(--line); font-family: inherit;}
+  .submit-btn {background: var(--charcoal); color: var(--ivory); width: 100%; padding: 16px; border: none; font-size: 0.85rem; letter-spacing:0.1em; text-transform: uppercase; font-weight: 600; cursor: pointer;}
+  .submit-btn:hover {background: var(--wine);}
+  footer{background:var(--charcoal); color:rgba(247,242,236,0.55); padding:60px 32px 30px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><a href="index.html">VERRLY</a></div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">Our Story</a>
+      <a href="shop.html">Shop All</a>
+      <a href="contact.html" style="color: var(--wine); font-weight: 700;">Contact</a>
+    </div>
+    <a href="shop.html" class="nav-cta">Shop Now</a>
+  </nav>
+</header>
+
+<div class="contact-wrap">
+  <h1>Conscious Support</h1>
+  <p style="opacity: 0.7; margin-bottom: 40px;">Have questions regarding custom sizing arrays or shipping? Send a direct dispatch to our studio concierges.</p>
+  
+  <form onsubmit="event.preventDefault(); this.innerHTML='<h3 style=\'color:var(--gold)\'>Message Transmitted Effectively.</h3>';">
+    <input type="text" class="input-field" placeholder="Full Name" required>
+    <input type="email" class="input-field" placeholder="Email Address" required>
+    <textarea class="input-field" rows="5" placeholder="Your inquiry..." required></textarea>
+    <button type="submit" class="submit-btn">Send Message</button>
+  </form>
+</div>
+
+<footer>
+  <div class="wrap" style="text-align: center; font-size: 0.8rem;">
+    <span>© 2026 Verrly. All rights reserved.</span>
+  </div>
+</footer>
 
 </body>
 </html>
