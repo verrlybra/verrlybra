@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verrly — Quiet Luxury Lingerie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum: #1c1116;
+    --wine: #6b1f2a;
+    --wine-light: #8c3341;
+    --gold: #c9a66b;
+    --gold-soft: #e3d3ae;
+    --ivory: #f7f2ec;
+    --blush: #e9d2ca;
+    --charcoal: #2a2024;
+    --line: rgba(28,17,22,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--ivory);
+    color: var(--charcoal);
+    font-family:'Manrope', sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    letter-spacing:0.01em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  /* Announcement bar */
+  .announce{
+    background: var(--wine);
+    color: var(--gold-soft);
+    text-align:center;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    padding:10px 16px;
+    font-weight:600;
+  }
+  .announce span{color:var(--ivory);}
+
+  /* Nav */
+  header {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px 32px;
+  }
+  .logo{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.7rem;
+    letter-spacing:0.12em;
+    font-weight:500;
+    z-index: 101;
+  }
+  .nav-links{
+    display:flex;
+    gap:36px;
+    font-size:0.82rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  .nav-links a{
+    position:relative;
+    padding-bottom:4px;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--wine);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    border:1px solid var(--charcoal);
+    padding:9px 20px;
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    border-radius:2px;
+    transition:all .25s ease;
+  }
+  .nav-cta:hover{background:var(--charcoal);color:var(--ivory);}
+
+  /* Mobile Nav Toggle */
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 101;
+    padding: 4px;
+  }
+  .menu-toggle svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--charcoal);
+    transition: stroke 0.3s ease;
+  }
+
+  @media(max-width:820px){
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: var(--ivory);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      font-size: 1.2rem;
+    }
+    .nav-links.active {
+      display: flex;
+    }
+    .menu-toggle {
+      display: block;
+    }
+    .nav-cta {
+      display: none;
+    }
+    /* Change toggle color if menu is open and header changes theme context */
+    .menu-open .menu-toggle svg {
+      stroke: var(--charcoal);
+    }
+  }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    background: radial-gradient(ellipse at 70% 20%, var(--wine-light) 0%, var(--plum) 55%);
+    color: var(--ivory);
+    padding:100px 32px 140px;
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:1180px;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    font-size:0.78rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin-bottom:22px;
+    display:block;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 5.2vw, 4.6rem);
+    line-height:1.05;
+    font-weight:500;
+    max-width:14ch;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--gold);
+  }
+  .hero p{
+    margin-top:26px;
+    max-width:42ch;
+    font-size:1.05rem;
+    color:rgba(247,242,236,0.8);
+  }
+  .hero-actions{
+    margin-top:38px;
+    display:flex;
+    gap:18px;
+    align-items:center;
+    flex-wrap: wrap;
+  }
+  .btn-primary{
+    background:var(--gold);
+    color:var(--plum);
+    padding:15px 32px;
+    font-size:0.82rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    font-weight:600;
+    border-radius:2px;
+    transition:transform .25s ease, background .25s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{background:var(--gold-soft);transform:translateY(-2px);}
+  .btn-ghost{
+    color:var(--ivory);
+    font-size:0.82rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    border-bottom:1px solid rgba(247,242,236,0.4);
+    padding-bottom:3px;
+  }
+
+  /* Draped ribbon SVG signature element */
+  .ribbon-wrap{position:relative; z-index:1; width: 100%; max-width: 420px; margin: 0 auto;}
+  .ribbon-wrap svg{width:100%;height:auto;}
+
+  @media(max-width:900px){
+    .hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 60px;
+    }
+    .hero h1, .hero p { margin-left: auto; margin-right: auto; }
+    .hero-actions { justify-content: center; }
+  }
+
+  /* Philosophy strip */
+  .strip{
+    background:var(--ivory);
+    padding:90px 32px;
+    text-align:center;
+  }
+  .strip .serif{
+    font-size:clamp(1.5rem, 3vw, 2.2rem);
+    max-width:26ch;
+    margin:0 auto;
+    font-weight:400;
+    font-style:italic;
+    color:var(--wine);
+    line-height:1.4;
+  }
+  .strip .tag{
+    display:block;
+    margin-top:20px;
+    font-size:0.75rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--charcoal);
+    opacity:0.55;
+  }
+
+  /* Collection */
+  .collection{
+    padding:20px 32px 110px;
+  }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:52px;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .section-head h2{
+    font-size:clamp(2rem,4vw,2.8rem);
+    font-weight:500;
+  }
+  .section-head p{
+    max-width:36ch;
+    font-size:0.92rem;
+    opacity:0.65;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  @media(max-width:900px){.grid{grid-template-columns:1fr; max-width: 450px; margin: 0 auto;}}
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition:box-shadow .3s ease, transform .3s ease;
+  }
+  .card:hover{box-shadow:0 24px 48px -20px rgba(28,17,22,0.18); transform:translateY(-4px);}
+  .card-art{
+    background:linear-gradient(160deg, var(--blush) 0%, #f4e4dd 100%);
+    height:260px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .card-art svg{width:58%;height:58%;}
+  .card-badge{
+    position:absolute;top:16px;left:16px;
+    background:var(--wine);
+    color:var(--gold-soft);
+    font-size:0.65rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:5px 11px;
+    border-radius:2px;
+  }
+  .card-body{padding:24px 24px 28px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;}
+  .card-body h3{font-size:1.4rem;font-weight:500;}
+  .card-body .desc{font-size:0.86rem;opacity:0.65;margin-top:6px; margin-bottom: 16px;}
+  .card-price{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:auto;
+  }
+  .price{font-size:1.05rem;font-weight:600;}
+  .price .old{
+    font-size:0.85rem;
+    opacity:0.45;
+    text-decoration:line-through;
+    margin-right:8px;
+    font-weight:400;
+  }
+  .add-btn{
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    border:1px solid var(--charcoal);
+    padding:9px 16px;
+    border-radius:2px;
+    transition:all .25s ease;
+  }
+  .add-btn:hover{background:var(--charcoal);color:var(--ivory);}
+
+  /* Fabric / craft section */
+  .craft{
+    background:var(--charcoal);
+    color:var(--ivory);
+    padding:110px 32px;
+  }
+  .craft-inner{
+    max-width:1180px;margin:0 auto;
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:60px;
+    align-items:center;
+  }
+  @media(max-width:900px){.craft-inner{grid-template-columns:1fr;}}
+  .craft h2{
+    font-size:clamp(2rem,3.6vw,2.6rem);
+    max-width:12ch;
+  }
+  .craft p.lead{
+    margin-top:20px;
+    margin-bottom:30px;
+    color:rgba(247,242,236,0.7);
+    max-width:38ch;
+  }
+  .craft-list{
+    display:grid;
+    gap:26px;
+  }
+  .craft-item{
+    display:flex;gap:18px;align-items:flex-start;
+    border-top:1px solid rgba(247,242,236,0.14);
+    padding-top:22px;
+  }
+  .craft-item:first-child{border-top:none;padding-top:0;}
+  .craft-item svg{flex-shrink:0;width:26px;height:26px;color:var(--gold);}
+  .craft-item h4{font-family:'Manrope';font-size:0.95rem;font-weight:700;letter-spacing:0.02em;}
+  .craft-item p{font-size:0.85rem;color:rgba(247,242,236,0.6);margin-top:4px;}
+
+  /* Testimonial */
+  .testimonial{
+    padding:110px 32px;
+    text-align:center;
+    background:var(--ivory);
+  }
+  .testimonial blockquote{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:clamp(1.4rem,3vw,2.1rem);
+    max-width:28ch;
+    margin:0 auto;
+    color:var(--wine);
+    line-height:1.45;
+  }
+  .testimonial cite{
+    display:block;
+    margin-top:24px;
+    font-style:normal;
+    font-size:0.75rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    opacity:0.5;
+  }
+
+  /* CTA email capture */
+  .capture{
+    background: linear-gradient(120deg, var(--wine) 0%, var(--plum) 100%);
+    color:var(--ivory);
+    padding:100px 32px;
+    text-align:center;
+  }
+  .capture h2{font-size:clamp(1.8rem,3.6vw,2.6rem);}
+  .capture p{opacity:0.75;max-width:40ch;margin:16px auto 34px;}
+  .capture-form{
+    display:flex;
+    max-width:440px;
+    margin:0 auto;
+    border:1px solid rgba(247,242,236,0.35);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .capture-form input{
+    flex:1;
+    background:transparent;
+    border:none;
+    padding:16px 18px;
+    color:var(--ivory);
+    font-family:'Manrope';
+    font-size:0.9rem;
+    width: 100%;
+  }
+  .capture-form input::placeholder{color:rgba(247,242,236,0.5);}
+  .capture-form button{
+    background:var(--gold);
+    color:var(--plum);
+    border:none;
+    padding:0 26px;
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    font-weight:600;
+    cursor:pointer;
+    transition: background 0.2s ease;
+  }
+  .capture-form button:hover{ background: var(--gold-soft); }
+  @media(max-width:480px) {
+    .capture-form { flex-direction: column; border: none; gap: 12px; }
+    .capture-form input { border: 1px solid rgba(247,242,236,0.35); border-radius: 3px; }
+    .capture-form button { padding: 16px; border-radius: 3px; }
+  }
+
+  /* Footer */
+  footer{
+    background:var(--charcoal);
+    color:rgba(247,242,236,0.55);
+    padding:60px 32px 30px;
+  }
+  .footer-inner{
+    max-width:1180px;margin:0 auto;
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:40px;
+    border-bottom:1px solid rgba(247,242,236,0.12);
+  }
+  @media(max-width:820px){.footer-inner{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.footer-inner{grid-template-columns:1fr;}}
+  .footer-inner .logo{color:var(--ivory);margin-bottom:14px;display:block;}
+  .footer-inner p{font-size:0.85rem;max-width:28ch;}
+  .footer-col h5{
+    font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--ivory);margin-bottom:16px;font-weight:700;
+  }
+  .footer-col a{
+    display:block;font-size:0.85rem;margin-bottom:10px;
+    opacity:0.8;
+  }
+  .footer-col a:hover{opacity:1;color:var(--gold);}
+  .footer-bottom{
+    max-width:1180px;margin:0 auto;
+    padding-top:24px;
+    font-size:0.75rem;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="announce">Semi-Annual Refresh — <span>20% off the full collection</span>, ends Sunday</div>
+
+<header>
+  <nav>
+    <div class="logo">VERRLY</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#shop">Shop</a>
+      <a href="#craft">The Fabric</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#join">Journal</a>
+    </div>
+    <a href="#shop" class="nav-cta">Shop Now</a>
+    
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-eyebrow">The Second-Skin Edit</span>
+      <h1>Support that <em>disappears</em> into the wearing.</h1>
+      <p>Verrly designs bras from breathable silk-blend lace and second-skin microfiber — built to feel like nothing at all, and look like everything.</p>
+      <div class="hero-actions">
+        <a href="#shop" class="btn-primary">Shop the Collection</a>
+        <a href="#craft" class="btn-ghost">Our Fabric Story</a>
+      </div>
+    </div>
+    <div class="ribbon-wrap">
+      <svg viewBox="0 0 420 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 60 C 140 20, 260 20, 360 90 C 300 140, 340 210, 300 260 C 250 220, 180 240, 160 300 C 220 330, 210 400, 150 430" stroke="#c9a66b" stroke-width="1.5" stroke-opacity="0.55"/>
+        <path d="M70 90 C 160 55, 250 60, 330 120 C 280 165, 305 220, 275 260 C 235 225, 185 245, 175 295 C 220 320, 210 380, 165 405" stroke="#e3d3ae" stroke-width="1" stroke-opacity="0.35"/>
+        <ellipse cx="210" cy="230" rx="150" ry="150" fill="url(#g1)" opacity="0.5"/>
+        <defs>
+          <radialGradient id="g1" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stop-color="#8c3341" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#8c3341" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <p class="serif">"The best bra is the one you forget you're wearing — so we spent three years perfecting the one you'd never want to take off."</p>
+  <span class="tag">Verrly Founding Note</span>
+</section>
+
+<section class="collection" id="shop">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The Signature Collection</h2>
+      <p>Three silhouettes, one philosophy: quiet luxury built for the way you actually move.</p>
+    </div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-art">
+          <span class="card-badge">Bestseller</span>
+          <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 30 Q 30 10 50 30 Q 70 10 90 30 L 85 55 Q 50 70 15 55 Z" stroke="#6b1f2a" stroke-width="1.6"/>
+            <path d="M50 30 L 50 62" stroke="#6b1f2a" stroke-width="1" stroke-opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div>
+            <h3>The Signature Balconette</h3>
+            <p class="desc">Structured lift in whisper-soft French lace.</p>
+          </div>
+          <div class="card-price">
+            <span class="price"><span class="old">$78</span>$62</span>
+            <a href="#shop" class="add-btn">Add to Bag</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-art">
+          <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 32 Q 30 14 50 32 Q 70 14 92 32 L 84 58 Q 50 72 16 58 Z" stroke="#6b1f2a" stroke-width="1.6"/>
+            <circle cx="50" cy="45" r="4" fill="#6b1f2a" fill-opacity="0.35"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div>
+            <h3>The Second-Skin T-Shirt Bra</h3>
+            <p class="desc">Seamless microfiber that vanishes under everything.</p>
+          </div>
+          <div class="card-price">
+            <span class="price">$58</span>
+            <a href="#shop" class="add-btn">Add to Bag</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-art">
+          <span class="card-badge">New</span>
+          <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 34 Q 32 18 50 34 Q 68 18 88 34 L 80 56 Q 50 68 20 56 Z" stroke="#6b1f2a" stroke-width="1.6" stroke-dasharray="2 3"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div>
+            <h3>The Lace Muse Bralette</h3>
+            <p class="desc">Unlined, unstructured, entirely unbothered.</p>
+          </div>
+          <div class="card-price">
+            <span class="price">$52</span>
+            <a href="#shop" class="add-btn">Add to Bag</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="craft" id="craft">
+  <div class="craft-inner">
+    <div>
+      <h2>Fabric first, always.</h2>
+      <p class="lead">Every Verrly piece starts with the material, not the mold. We source lace and microfiber the way a tailor sources wool — by hand, by feel.</p>
+    </div>
+    <div class="craft-list">
+      <div class="craft-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <div><h4>Silk-Blend French Lace</h4><p>Woven for stretch recovery, so it holds its shape wash after wash.</p></div>
+      </div>
+      <div class="craft-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+        <div><h4>Breathable Microfiber</h4><p>Moisture-wicking and temperature-neutral for all-day wear.</p></div>
+      </div>
+      <div class="craft-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.5 5 5.5.8-4 4 1 5.5L12 15.8 7 18.3l1-5.5-4-4 5.5-.8z"/></svg>
+        <div><h4>Fit-Tested, Not Just Sized</h4><p>Every style is tested across 40+ body shapes before it ships.</p></div>
+      </div>
+      <div class="craft-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>
+        <div><h4>Discreet, Insured Shipping</h4><p>Plain packaging, tracked door to door, always.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial" id="reviews">
+  <blockquote>"I didn't think a bra could make me stand up straighter without trying."
+    <cite>— Early Verrly customer</cite>
+  </blockquote>
+</section>
+
+<section class="capture" id="join">
+  <h2 class="serif">Get first access.</h2>
+  <p>Join the list for early drops, restocks, and a welcome offer on your first order.</p>
+  <form class="capture-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Added ✓';">
+    <input type="email" placeholder="Your email address" required>
+    <button type="submit">Join</button>
+  </form>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="logo">VERRLY</span>
+      <p>Quiet luxury lingerie, designed to be forgotten the moment you put it on.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <a href="#shop">Bras</a>
+      <a href="#shop">New Arrivals</a>
+      <a href="#shop">Sale</a>
+    </div>
+    <div class="footer-col">
+      <h5>Help</h5>
+      <a href="#">Size Guide</a>
+      <a href="#">Returns</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#">About Verrly</a>
+      <a href="#join">Journal</a>
+      <a href="#">Sustainability</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Verrly. All rights reserved.</span>
+    <span>Privacy · Terms</span>
+  </div>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
+  });
+
+  // Close menu when a link is clicked
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    });
+  });
+</script>
+
+</body>
+</html>
