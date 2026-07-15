@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Bag — Verrly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum: #1c1116; --wine: #6b1f2a; --ivory: #f7f2ec; --charcoal: #2a2024; --line: rgba(28,17,22,0.12); --gold: #c9a66b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background: var(--ivory); color: var(--charcoal); font-family:'Manrope', sans-serif; padding-bottom: 60px;}
+  h1,h2{font-family:'Cormorant Garamond', serif;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:800px; margin:0 auto; padding:0 32px;}
+
+  /* Header Navigation */
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:22px 32px; max-width: 1180px; margin: 0 auto;}
+  .logo{ font-family:'Cormorant Garamond', serif; font-size:1.7rem; letter-spacing:0.12em; }
+  .nav-links{ display:flex; gap:36px; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; }
+  
+  .cart-title { text-align: center; padding: 50px 0; font-size: 2.5rem; color: var(--wine); }
+  .cart-container { background: white; padding: 32px; border-radius: 4px; border: 1px solid var(--line); }
+  .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .cart-item:last-of-type { border-bottom: none; }
+  
+  .item-details h4 { font-size: 1.1rem; font-weight: 500; }
+  .item-details p { font-size: 0.85rem; opacity: 0.5; margin-top: 2px; }
+  .remove-btn { font-size: 0.75rem; text-transform: uppercase; color: var(--wine); background: none; border: none; cursor: pointer; margin-top: 8px; display: block;}
+  
+  .checkout-section { margin-top: 32px; text-align: right; border-top: 2px solid var(--charcoal); padding-top: 24px;}
+  .total-row { font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; }
+  .checkout-btn { background: var(--wine); color: var(--ivory); padding: 16px 40px; border: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em; border-radius: 2px; cursor: pointer; font-weight: 600;}
+  .checkout-btn:hover { background: var(--plum); }
+  .empty-msg { text-align: center; opacity: 0.6; padding: 40px 0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><a href="index.html">VERRLY</a></div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop All</a>
+    <a href="fabric.html">The Fabric</a>
+    <a href="journal.html">Journal</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <h1 class="cart-title">Shopping Bag</h1>
+  
+  <div class="cart-container">
+    <div id="cart-items-wrapper">
+      <!-- Injected dynamically by JS -->
+    </div>
+    
+    <div class="checkout-section">
+      <div class="total-row">Total: <span id="cart-total">$0.00</span></div>
+      <button class="checkout-btn" onclick="alert('Order successfully processed! Thank you for shopping with Verrly.')">Proceed to Checkout</button>
+    </div>
+  </div>
+</main>
+
+<script>
+  function renderCart() {
+    let cart = JSON.parse(localStorage.getItem('verrly-cart')) || [];
+    let wrapper = document.getElementById('cart-items-wrapper');
+    let totalContainer = document.getElementById('cart-total');
+    
+    if (cart.length === 0) {
+      wrapper.innerHTML = `<p class="empty-msg">Your luxury capsule bag is currently empty.</p>`;
+      totalContainer.textContent = "$0.00";
+      return;
+    }
+    
+    wrapper.innerHTML = "";
+    let grandTotal = 0;
+    
+    cart.forEach((item, index) => {
+      grandTotal += item.price * item.quantity;
+      wrapper.innerHTML += `
+        <div class="cart-item">
+          <div class="item-details">
+            <h4>${item.name}</h4>
+            <p>Quantity: ${item.quantity}</p>
+            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+          </div>
+          <div style="font-weight:600;">$${item.price * item.quantity}</div>
+        </div>
+      `;
+    });
+    
+    totalContainer.textContent = `$${grandTotal}.00`;
+  }
+
+  function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem('verrly-cart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('verrly-cart', JSON.stringify(cart));
+    renderCart();
+  }
+
+  renderCart();
+</script>
+</body>
+</html>
