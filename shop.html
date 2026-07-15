@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop All — Verrly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum: #1c1116; --wine: #6b1f2a; --wine-light: #8c3341;
+    --gold: #c9a66b; --gold-soft: #e3d3ae; --ivory: #f7f2ec;
+    --blush: #e9d2ca; --charcoal: #2a2024; --line: rgba(28,17,22,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background: var(--ivory); color: var(--charcoal); font-family:'Manrope', sans-serif;}
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:500;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  /* Header & Nav */
+  header { max-width: 1180px; margin: 0 auto; width: 100%; }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:22px 32px; }
+  .logo{ font-family:'Cormorant Garamond', serif; font-size:1.7rem; letter-spacing:0.12em; }
+  .nav-links{ display:flex; gap:36px; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; }
+  .nav-links a{ position:relative; padding-bottom:4px; }
+  .nav-links a::after{ content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--wine); transition:width .3s ease; }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{ border:1px solid var(--charcoal); padding:9px 20px; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; border-radius:2px; }
+  .nav-cta:hover{ background:var(--charcoal); color:var(--ivory); }
+
+  /* Page Title */
+  .page-title { text-align: center; padding: 60px 32px 40px; }
+  .page-title h1 { font-size: 3rem; color: var(--wine); }
+  .page-title p { font-size: 0.95rem; opacity: 0.6; margin-top: 10px; }
+
+  /* Grid Layout */
+  .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; padding-bottom: 100px; }
+  @media(max-width:900px){.grid{grid-template-columns:1fr; max-width: 450px; margin: 0 auto;}}
+  
+  .card{ background:#fff; border:1px solid var(--line); border-radius:4px; overflow:hidden; display: flex; flex-direction: column; justify-content: space-between; transition: all .3s ease; }
+  .card:hover{ box-shadow:0 24px 48px -20px rgba(28,17,22,0.18); transform:translateY(-4px); }
+  .card-art{ background:linear-gradient(160deg, var(--blush) 0%, #f4e4dd 100%); height:260px; display:flex; align-items:center; justify-content:center; position:relative; }
+  .card-art svg{ width:58%; height:58%; }
+  .card-body{ padding:24px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+  .card-body h3{ font-size:1.3rem; }
+  .card-body .desc{ font-size:0.86rem; opacity:0.65; margin: 6px 0 16px; }
+  .card-price{ display:flex; justify-content:space-between; align-items:center; }
+  .price{ font-weight:600; }
+  .add-btn{ font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--charcoal); padding:9px 16px; border-radius:2px; cursor: pointer; background: transparent; transition:all .25s ease; }
+  .add-btn:hover{ background:var(--charcoal); color:var(--ivory); }
+
+  footer{ background:var(--charcoal); color:rgba(247,242,236,0.55); padding:60px 32px 30px; margin-top: 40px;}
+  .footer-bottom{ max-width:1180px; margin:0 auto; padding-top:24px; font-size:0.75rem; display:flex; justify-content:space-between; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><a href="index.html">VERRLY</a></div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html" style="color: var(--wine); font-weight: 700;">Shop All</a>
+      <a href="fabric.html">The Fabric</a>
+      <a href="journal.html">Journal</a>
+    </div>
+    <a href="cart.html" class="nav-cta">Bag (<span id="cart-count">0</span>)</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="page-title">
+    <h1>The Full Collection</h1>
+    <p>Quiet luxury layers engineered for premium structural support.</p>
+  </div>
+
+  <div class="grid">
+    <!-- Item 1 -->
+    <div class="card">
+      <div class="card-art">
+        <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 30 Q 30 10 50 30 Q 70 10 90 30 L 85 55 Q 50 70 15 55 Z" stroke="#6b1f2a" stroke-width="1.6"/><path d="M50 30 L 50 62" stroke="#6b1f2a" stroke-width="1" stroke-opacity="0.5"/></svg>
+      </div>
+      <div class="card-body">
+        <div>
+          <h3>The Signature Balconette</h3>
+          <p class="desc">Structured lift woven from delicate custom lace loops.</p>
+        </div>
+        <div class="card-price">
+          <span class="price">$62</span>
+          <button class="add-btn" onclick="addToCart('Signature Balconette', 62)">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="card">
+      <div class="card-art">
+        <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 32 Q 30 14 50 32 Q 70 14 92 32 L 84 58 Q 50 72 16 58 Z" stroke="#6b1f2a" stroke-width="1.6"/><circle cx="50" cy="45" r="4" fill="#6b1f2a" fill-opacity="0.35"/></svg>
+      </div>
+      <div class="card-body">
+        <div>
+          <h3>The Second-Skin T-Shirt Bra</h3>
+          <p class="desc">Laser-cut raw edges that disappear under lightweight silk apparel.</p>
+        </div>
+        <div class="card-price">
+          <span class="price">$58</span>
+          <button class="add-btn" onclick="addToCart('Second-Skin T-Shirt Bra', 58)">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="card">
+      <div class="card-art">
+        <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 34 Q 32 18 50 34 Q 68 18 88 34 L 80 56 Q 50 68 20 56 Z" stroke="#6b1f2a" stroke-width="1.6" stroke-dasharray="2 3"/></svg>
+      </div>
+      <div class="card-body">
+        <div>
+          <h3>The Lace Muse Bralette</h3>
+          <p class="desc">Completely unlined stretch panels providing clean wireless freedom.</p>
+        </div>
+        <div class="card-price">
+          <span class="price">$52</span>
+          <button class="add-btn" onclick="addToCart('Lace Muse Bralette', 52)">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-bottom wrap">
+    <span>© 2026 Verrly Lingerie. All rights reserved.</span>
+    <span>Privacy · Terms</span>
+  </div>
+</footer>
+
+<script>
+  function updateCartBadge() {
+    let cart = JSON.parse(localStorage.getItem('verrly-cart')) || [];
+    let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cart-count').textContent = totalItems;
+  }
+
+  function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem('verrly-cart')) || [];
+    let existingItem = cart.find(item => item.name === name);
+    
+    if(existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ name: name, price: price, quantity: 1 });
+    }
+    
+    localStorage.setItem('verrly-cart', JSON.stringify(cart));
+    updateCartBadge();
+    
+    // Quick interactive notice
+    event.target.textContent = "Added ✓";
+    setTimeout(() => { event.target.textContent = "Add to Bag"; }, 1000);
+  }
+
+  // Initial check on load
+  updateCartBadge();
+</script>
+</body>
+</html>
