@@ -1,53 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Verrly</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f7f7f7;
+            color:#333;
+        }
+
+        .cart-container{
+            max-width:1200px;
+            margin:40px auto;
+            padding:20px;
+        }
+
+        .cart-title{
+            font-size:2rem;
+            margin-bottom:30px;
+            font-weight:bold;
+        }
+
+        .cart-table{
+            width:100%;
+            background:#fff;
+            border-radius:12px;
+            overflow:hidden;
+            box-shadow:0 5px 20px rgba(0,0,0,.08);
+        }
+
+        .cart-header{
+            display:grid;
+            grid-template-columns:2fr 1fr 1fr 1fr 70px;
+            padding:18px;
+            background:#111;
+            color:#fff;
+            font-weight:bold;
+        }
+
+        .cart-item{
+            display:grid;
+            grid-template-columns:2fr 1fr 1fr 1fr 70px;
+            align-items:center;
+            padding:20px;
+            border-bottom:1px solid #eee;
+            transition:.3s;
+        }
+
+        .cart-item:hover{
+            background:#fafafa;
+        }
+
+        .product-info{
+            display:flex;
+            align-items:center;
+            gap:15px;
+        }
+
+        .product-info img{
+            width:90px;
+            height:90px;
+            object-fit:cover;
+            border-radius:10px;
+        }
+
+        .product-name{
+            font-size:18px;
+            font-weight:600;
+            margin-bottom:6px;
+        }
+
+        .product-category{
+            font-size:14px;
+            color:#888;
+        }
+
+        .price,
+        .item-total{
+            font-weight:bold;
+            font-size:18px;
+        }
+
+        .qty-box{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .qty-btn{
+            width:35px;
+            height:35px;
+            border:none;
+            background:#111;
+            color:white;
+            border-radius:6px;
+            cursor:pointer;
+            transition:.3s;
+            font-size:18px;
+        }
+
+        .qty-btn:hover{
+            background:#444;
+        }
+
+        .qty{
+            font-size:18px;
+            width:30px;
+            text-align:center;
+        }
+
+        .remove-btn{
+            border:none;
+            background:none;
+            color:#e53935;
+            cursor:pointer;
+            font-size:22px;
+            transition:.3s;
+        }
+
+        .remove-btn:hover{
+            transform:scale(1.2);
+        }
+
+        .cart-summary{
+            margin-top:30px;
+            display:flex;
+            justify-content:flex-end;
+        }
+
+        .summary-box{
+            width:360px;
+            background:#fff;
+            border-radius:12px;
+            padding:25px;
+            box-shadow:0 5px 20px rgba(0,0,0,.08);
+        }
+
+        .summary-box h2{
+            margin-bottom:20px;
+        }
+
+        .summary-row{
+            display:flex;
+            justify-content:space-between;
+            margin:15px 0;
+            font-size:17px;
+        }
+
+        .summary-row.total{
+            border-top:2px solid #ddd;
+            padding-top:15px;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        .cart-buttons{
+            display:flex;
+            flex-direction:column;
+            gap:15px;
+            margin-top:25px;
+        }
+
+        .btn{
+            text-decoration:none;
+            text-align:center;
+            padding:14px;
+            border-radius:8px;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        .continue-btn{
+            background:#ddd;
+            color:#222;
+        }
+
+        .continue-btn:hover{
+            background:#ccc;
+        }
+
+        .checkout-btn{
+            background:#111;
+            color:white;
+        }
+
+        .checkout-btn:hover{
+            background:#333;
+        }
+
+        .empty-cart{
+            display:none;
+            text-align:center;
+            background:#fff;
+            padding:60px 20px;
+            border-radius:12px;
+            box-shadow:0 5px 20px rgba(0,0,0,.08);
+        }
+
+        .empty-cart i{
+            font-size:70px;
+            color:#bbb;
+            margin-bottom:20px;
+        }
+
+        .empty-cart h2{
+            margin-bottom:10px;
+        }
+
+        .empty-cart p{
+            color:#777;
+            margin-bottom:25px;
+        }
+
+        @media(max-width:900px){
+
+            .cart-header{
+                display:none;
+            }
+
+            .cart-item{
+                grid-template-columns:1fr;
+                gap:15px;
+                text-align:center;
+            }
+
+            .product-info{
+                flex-direction:column;
+            }
+
+            .qty-box{
+                justify-content:center;
+            }
+
+            .cart-summary{
+                justify-content:center;
+            }
+
+            .summary-box{
+                width:100%;
+            }
+        }
+    </style>
+</head>
+
 <body>
 
 <div class="cart-container">
 
-    <h1>Your Shopping Cart</h1>
+    <h1 class="cart-title">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Shopping Cart
+    </h1>
 
-    <div id="cartItems"></div>
+    <!-- Empty Cart -->
+    <div class="empty-cart" id="emptyCart">
+        <i class="fa-solid fa-cart-shopping"></i>
 
-    <h2>Total: $<span id="cartTotal">0.00</span></h2>
+        <h2>Your cart is empty</h2>
 
-    <button onclick="window.location.href='shop.html'">
-        Continue Shopping
-    </button>
+        <p>
+            Looks like you haven't added any products yet.
+        </p>
 
-    <button onclick="window.location.href='invoice.html'">
-        Proceed to Checkout
-    </button>
+        <a href="shop.html" class="btn checkout-btn">
+            Continue Shopping
+        </a>
+    </div>
 
-</div>
+    <!-- Cart Content -->
+    <div id="cartContent">
 
-<!-- Paste Step 3 HERE -->
-<script>
+        <div class="cart-table">
 
-let cart = JSON.parse(localStorage.getItem("verrly-cart")) || [];
+            <div class="cart-header">
+                <div>Product</div>
+                <div>Price</div>
+                <div>Quantity</div>
+                <div>Total</div>
+                <div></div>
+            </div>
+
+            <!-- JavaScript will generate cart items here -->
+            <div id="cartItems"></div>
+
+        </div>
+
+        <!-- Summary -->
+        <div class="cart-summary">
+
+            <div class="summary-box">
+
+                <h2>Order Summary</h2>
+
+                <div class="summary-row">
+                    <span>Items</span>
+                    <span id="totalItems">0</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>FREE</span>
+                </div>
+
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span id="grandTotal">₹0</span>
+                </div>
+
+                <div class="cart-buttons">
+
+                    <a href="shop.html" class="btn continue-btn">
+                        ← Continue Shopping
+                    </a>
+
+                    <a href="checkout.html" class="btn checkout-btn">
+                        Proceed to Checkout
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // ===============================
+// Verrly Shopping Cart
+// ===============================
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const cartItems = document.getElementById("cartItems");
+const emptyCart = document.getElementById("emptyCart");
+const cartContent = document.getElementById("cartContent");
 
-let total = 0;
+const totalItems = document.getElementById("totalItems");
+const subtotal = document.getElementById("subtotal");
+const grandTotal = document.getElementById("grandTotal");
 
-cart.forEach(item => {
+// Currency formatter
+function formatPrice(price) {
+    return "₹" + Number(price).toLocaleString("en-IN");
+}
 
-    total += item.price * item.quantity;
+// Render cart
+function renderCart() {
 
-    cartItems.innerHTML += `
-    <div style="display:flex;align-items:center;gap:20px;border-bottom:1px solid #ddd;padding:20px 0;">
-        <img src="${item.image}" width="100">
-        <div>
-            <h3>${item.name}</h3>
-            <p>Price: $${item.price}</p>
-            <p>Quantity: ${item.quantity}</p>
+    cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cartItems.innerHTML = "";
+
+    if (cart.length === 0) {
+        cartContent.style.display = "none";
+        emptyCart.style.display = "block";
+        return;
+    }
+
+    cartContent.style.display = "block";
+    emptyCart.style.display = "none";
+
+    let totalQuantity = 0;
+    let totalPrice = 0;
+
+    cart.forEach((item, index) => {
+
+        const quantity = item.quantity || 1;
+        const price = Number(item.price);
+        const itemTotal = price * quantity;
+
+        totalQuantity += quantity;
+        totalPrice += itemTotal;
+
+        cartItems.innerHTML += `
+        <div class="cart-item">
+
+            <div class="product-info">
+
+                <img src="${item.image}" alt="${item.name}">
+
+                <div>
+                    <div class="product-name">${item.name}</div>
+                    <div class="product-category">
+                        ${item.category || "Product"}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="price">
+                ${formatPrice(price)}
+            </div>
+
+            <div class="qty-box">
+
+                <button class="qty-btn"
+                    onclick="changeQuantity(${index},-1)">
+                    -
+                </button>
+
+                <span class="qty">${quantity}</span>
+
+                <button class="qty-btn"
+                    onclick="changeQuantity(${index},1)">
+                    +
+                </button>
+
+            </div>
+
+            <div class="item-total">
+                ${formatPrice(itemTotal)}
+            </div>
+
+            <button class="remove-btn"
+                onclick="removeItem(${index})">
+
+                <i class="fa-solid fa-trash"></i>
+
+            </button>
+
         </div>
-        <div>
-            <strong>$${(item.price * item.quantity).toFixed(2)}</strong>
-        </div>
-    </div>
-    `;
+        `;
+    });
 
-});
+    totalItems.textContent = totalQuantity;
+    subtotal.textContent = formatPrice(totalPrice);
+    grandTotal.textContent = formatPrice(totalPrice);
 
-document.getElementById("cartTotal").textContent = total.toFixed(2);
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+        // ===============================
+// Quantity Controls
+// ===============================
+
+function changeQuantity(index, change) {
+
+    if (!cart[index]) return;
+
+    cart[index].quantity = (cart[index].quantity || 1) + change;
+
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+
+    updateCart();
+}
+
+
+// ===============================
+// Remove Product
+// ===============================
+
+function removeItem(index) {
+
+    if (confirm("Remove this item from your cart?")) {
+
+        cart.splice(index, 1);
+
+        updateCart();
+    }
+
+}
+
+
+// ===============================
+// Save & Refresh
+// ===============================
+
+function updateCart() {
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    renderCart();
+
+}
+
+
+// ===============================
+// Initial Load
+// ===============================
+
+// Ensure every product has a quantity
+cart = cart.map(item => ({
+    ...item,
+    quantity: item.quantity || 1
+}));
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+// Display the cart
+renderCart();
 
 </script>
 
