@@ -352,10 +352,11 @@
   <div class="wrap reveal">
     <h3 class="serif">Join the Inner Circle</h3>
     <p>Early access to new drops, restocks and 10% off your first order.</p>
-    <form class="nl-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed ✓';">
-      <input type="email" placeholder="Your email address" required>
+    <form class="nl-form" id="newsletterForm" action="https://formspree.io/f/mqereyod" method="POST">
+      <input type="email" name="email" placeholder="Your email address" required>
       <button type="submit">Subscribe</button>
     </form>
+    <p id="nlStatus" style="margin-top:14px; font-size:0.82rem; color:rgba(247,242,236,0.75); display:none;"></p>
   </div>
 </section>
 
@@ -403,6 +404,38 @@
     navLinks.classList.toggle('active');
     document.body.classList.toggle('menu-open');
   });
+
+  const newsletterForm = document.getElementById('newsletterForm');
+  if(newsletterForm){
+    newsletterForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const btn = newsletterForm.querySelector('button');
+      const status = document.getElementById('nlStatus');
+      const originalLabel = btn.textContent;
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      fetch(newsletterForm.action, {
+        method: 'POST',
+        body: new FormData(newsletterForm),
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if(response.ok){
+          btn.textContent = 'Subscribed ✓';
+          status.style.display = 'block';
+          status.textContent = "You're on the list — check your inbox for confirmation.";
+          newsletterForm.reset();
+        } else {
+          throw new Error('Submission failed');
+        }
+      }).catch(() => {
+        btn.textContent = originalLabel;
+        btn.disabled = false;
+        status.style.display = 'block';
+        status.textContent = 'Something went wrong — please try again in a moment.';
+      });
+    });
+  }
 
   function updateCartCount(){
     try{
