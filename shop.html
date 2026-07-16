@@ -131,7 +131,7 @@ const products = [
     id:'wine-bralette',
     name:'The Verrly Bralette',
     color:'Wine',
-    price:68,
+    price:1999,
     type:'bralette',
     image:'image_5c7045.jpg',
     filter:'saturate(1.15) contrast(1.03)'
@@ -141,7 +141,7 @@ const products = [
     id:'noir-bralette',
     name:'The Verrly Bralette',
     color:'Noir',
-    price:68,
+    price:1999,
     type:'bralette',
     image:'image_5c7045.jpg',
     filter:'brightness(0.72) contrast(1.15) saturate(1.1)'
@@ -151,7 +151,7 @@ const products = [
     id:'ivory-plunge',
     name:'Second-Skin Plunge',
     color:'Ivory',
-    price:72,
+    price:2199,
     type:'plunge',
     image:'image_5c7045.jpg',
     filter:'grayscale(0.55) brightness(1.12) contrast(0.95)'
@@ -161,7 +161,7 @@ const products = [
     id:'wine-plunge',
     name:'Second-Skin Plunge',
     color:'Wine',
-    price:72,
+    price:2199,
     type:'plunge',
     image:'image_5c7045.jpg',
     filter:'saturate(1.2) brightness(0.95)'
@@ -171,7 +171,7 @@ const products = [
     id:'blush-balc',
     name:'Lace Balconette',
     color:'Blush',
-    price:76,
+    price:2499,
     type:'balconette',
     image:'image_5c7045.jpg',
     filter:'hue-rotate(-18deg) saturate(0.85) brightness(1.08)'
@@ -181,7 +181,7 @@ const products = [
     id:'gold-balc',
     name:'Lace Balconette',
     color:'Champagne',
-    price:76,
+    price:2499,
     type:'balconette',
     image:'image_5c7045.jpg',
     filter:'sepia(0.35) saturate(1.1) brightness(1.05)'
@@ -191,7 +191,7 @@ const products = [
     id:'noir-base',
     name:'The Wireless Base',
     color:'Noir',
-    price:64,
+    price:1799,
     type:'bralette',
     image:'image_5c7045.jpg',
     filter:'brightness(0.68) contrast(1.2)'
@@ -201,7 +201,7 @@ const products = [
     id:'ivory-base',
     name:'The Wireless Base',
     color:'Ivory',
-    price:64,
+    price:1799,
     type:'bralette',
     image:'image_5c7045.jpg',
     filter:'grayscale(0.6) brightness(1.15)'
@@ -227,7 +227,7 @@ const products = [
             <div class="pname">${p.name}</div>
             <div class="pmeta">${p.color} · ${p.type}</div>
             <div class="price-row">
-              <div class="pprice">$${p.price}</div>
+              <div class="pprice">₹${p.price.toLocaleString('en-IN')}</div>
               <button class="add-btn" data-id="${p.id}">Add to Bag</button>
             </div>
           </div>
