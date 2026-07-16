@@ -123,90 +123,89 @@
   <p>© 2026 Verrly. Quiet luxury lingerie.</p>
 </footer>
 
-<script>
-  const products = [
-    {
-        id:'wine-bralette',
-        name:'The Verrly Bralette',
-        color:'Wine',
-        price:68,
-        type:'bralette',
-        image:'image_5c7045.jpg',
-        filter:'saturate(1.15) contrast(1.03)'
-    },
-    const products = [
-    {
-        id:'wine-bralette',
-        name:'The Verrly Bralette',
-        color:'Wine',
-        price:68,
-        type:'bralette',
-        image:'image_5c7045.jpg',
-        filter:'saturate(1.15) contrast(1.03)'
-    },
-    const products = [
-    {
-        id:'wine-bralette',
-        name:'The Verrly Bralette',
-        color:'Wine',
-        price:68,
-        type:'bralette',
-        image:'image_5c7045.jpg',
-        filter:'saturate(1.15) contrast(1.03)'
-    },
-    const products = [
-    {
-        id:'wine-bralette',
-        name:'The Verrly Bralette',
-        color:'Wine',
-        price:68,
-        type:'bralette',
-        image:'image_5c7045.jpg',
-        filter:'saturate(1.15) contrast(1.03)'
-    },
-    const products = [
-    {
-        id:'wine-bralette',
-        name:'The Verrly Bralette',
-        color:'Wine',
-        price:68,
-        type:'bralette',
-        image:'image_5c7045.jpg',
-        filter:'saturate(1.15) contrast(1.03)'
-    },
-   const products = [
-    {
-        id:'wine-bralette',
-        name:'The Verrly Bralette',
-        color:'Wine',
-        price:68,
-        type:'bralette',
-        image:'image_5c7045.jpg',
-        filter:'saturate(1.15) contrast(1.03)'
-    },
-   const products = [
-    {
-        id:'wine-bralette',
-        name:'The Verrly Bralette',
-        color:'Wine',
-        price:68,
-        type:'bralette',
-        image:'image_5c7045.jpg',
-        filter:'saturate(1.15) contrast(1.03)'
-    },
-    const products = [
-    {
-        id:'wine-bralette',
-        name:'The Verrly Bralette',
-        color:'Wine',
-        price:68,
-        type:'bralette',
-        image:'image_5c7045.jpg',
-        filter:'saturate(1.15) contrast(1.03)'
-    },
-  ];
+const products = [
 
-  const grid = document.getElementById('productGrid');
+{
+    id:'wine-bralette',
+    name:'The Verrly Bralette',
+    color:'Wine',
+    price:68,
+    type:'bralette',
+    image:'image_5c7045.jpg',
+    filter:'saturate(1.15) contrast(1.03)'
+},
+
+{
+    id:'noir-bralette',
+    name:'The Verrly Bralette',
+    color:'Noir',
+    price:68,
+    type:'bralette',
+    image:'image_5c7045.jpg',
+    filter:'brightness(0.72) contrast(1.15) saturate(1.1)'
+},
+
+{
+    id:'ivory-plunge',
+    name:'Second-Skin Plunge',
+    color:'Ivory',
+    price:72,
+    type:'plunge',
+    image:'image_5c7045.jpg',
+    filter:'grayscale(0.55) brightness(1.12) contrast(0.95)'
+},
+
+{
+    id:'wine-plunge',
+    name:'Second-Skin Plunge',
+    color:'Wine',
+    price:72,
+    type:'plunge',
+    image:'image_5c7045.jpg',
+    filter:'saturate(1.2) brightness(0.95)'
+},
+
+{
+    id:'blush-balc',
+    name:'Lace Balconette',
+    color:'Blush',
+    price:76,
+    type:'balconette',
+    image:'image_5c7045.jpg',
+    filter:'hue-rotate(-18deg) saturate(0.85) brightness(1.08)'
+},
+
+{
+    id:'gold-balc',
+    name:'Lace Balconette',
+    color:'Champagne',
+    price:76,
+    type:'balconette',
+    image:'image_5c7045.jpg',
+    filter:'sepia(0.35) saturate(1.1) brightness(1.05)'
+},
+
+{
+    id:'noir-base',
+    name:'The Wireless Base',
+    color:'Noir',
+    price:64,
+    type:'bralette',
+    image:'image_5c7045.jpg',
+    filter:'brightness(0.68) contrast(1.2)'
+},
+
+{
+    id:'ivory-base',
+    name:'The Wireless Base',
+    color:'Ivory',
+    price:64,
+    type:'bralette',
+    image:'image_5c7045.jpg',
+    filter:'grayscale(0.6) brightness(1.15)'
+}
+
+];
 
   function render(filter){
     grid.innerHTML = '';
@@ -245,27 +244,34 @@
   }
 
   function addToCart(product){
-    let cart = JSON.parse(localStorage.getItem('verrly-cart')) || [];
-    const existing = cart.find(i => i.id === product.id);
-    if(existing){ existing.quantity += 1; }
-    else{
 
-cart.push({
+    let cart = JSON.parse(localStorage.getItem("verrly-cart")) || [];
 
-id:product.id,
+    const existing = cart.find(item => item.id === product.id);
 
-name:`${product.name} — ${product.color}`,
+    if(existing){
 
-price:product.price,
+        existing.quantity++;
 
-quantity:1,
+    }else{
 
-image:product.image
+        cart.push({
 
-});
+            id: product.id,
+            name: `${product.name} — ${product.color}`,
+            price: product.price,
+            quantity: 1,
+            image: product.image
+
+        });
+
+    }
+
+    localStorage.setItem("verrly-cart", JSON.stringify(cart));
+
+    updateCartCount();
 
 }
-
   function updateCartCount(){
     const cart = JSON.parse(localStorage.getItem('verrly-cart')) || [];
     const count = cart.reduce((sum,i)=>sum+(i.quantity||1),0);
