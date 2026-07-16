@@ -123,6 +123,8 @@
   <p>© 2026 Verrly. Quiet luxury lingerie.</p>
 </footer>
 
+  <script>
+    
 const products = [
 
 {
@@ -206,7 +208,8 @@ const products = [
 }
 
 ];
-
+    const grid = document.getElementById('productGrid');
+    
   function render(filter){
     grid.innerHTML = '';
     products
@@ -218,7 +221,7 @@ const products = [
         card.innerHTML = `
           <div class="product-thumb">
             <span class="product-badge">${p.color}</span>
-            <img src="${item.image}" alt="${p.name} in ${p.color}" style="filter:${p.filter};">
+            <img src="${p.image}" alt="${p.name} in ${p.color}" style="filter:${p.filter};">
           </div>
           <div class="product-info">
             <div class="pname">${p.name}</div>
@@ -243,7 +246,10 @@ const products = [
     });
   }
 
-  function addToCart(product){
+ 
+  render('all');
+    
+    function addToCart(product){
 
     let cart = JSON.parse(localStorage.getItem("verrly-cart")) || [];
 
@@ -280,18 +286,25 @@ const products = [
 
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      render(btn.dataset.filter);
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        render(btn.dataset.filter);
     });
-  });
+});
 
-  render('all');
-  updateCartCount();
+render('all');
 
-  const menuToggle = document.getElementById('menuToggle');
-  const navLinks = document.getElementById('navLinks');
-  menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+updateCartCount();
+
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
+
 </script>
 
 </body>
