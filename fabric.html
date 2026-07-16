@@ -6,62 +6,175 @@
 <title>The Fabric — Verrly</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{ --plum: #1c1116; --wine: #6b1f2a; --ivory: #f7f2ec; --charcoal: #2a2024; --gold: #c9a66b; --line: rgba(28,17,22,0.12); }
+  :root{ --plum:#1c1116; --wine:#6b1f2a; --ivory:#f7f2ec; --charcoal:#2a2024; --charcoal-soft:#6b6066; --gold:#c9a66b; --gold-soft:#e3d3ae; --blush:#e9d2ca; --line:rgba(28,17,22,0.12); }
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{background: var(--ivory); color: var(--charcoal); font-family:'Manrope', sans-serif;}
-  h1,h2,h3{font-family:'Cormorant Garamond', serif;}
-  a{color:inherit;text-decoration:none;}
-  .wrap{max-width:900px; margin:0 auto; padding:0 32px;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--ivory); color:var(--charcoal); font-family:'Manrope', sans-serif; line-height:1.6;}
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:500;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 32px;}
 
-  nav{ display:flex; align-items:center; justify-content:space-between; padding:22px 32px; max-width: 1180px; margin: 0 auto;}
-  .logo{ font-family:'Cormorant Garamond', serif; font-size:1.7rem; letter-spacing:0.12em; }
-  .nav-links{ display:flex; gap:36px; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; }
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;}}
 
-  .story-hero { text-align: center; padding: 80px 0 50px; }
-  .story-hero h1 { font-size: 3.5rem; color: var(--wine); line-height: 1.1; }
-  .story-hero em { font-style: italic; color: var(--gold); }
-  
-  .content-block { font-size: 1.1rem; line-height: 1.8; opacity: 0.85; margin-bottom: 40px; }
-  .content-block h2 { font-size: 2rem; color: var(--plum); margin: 30px 0 12px; font-weight: 500; }
-  
-  .spec-box { background: white; padding: 28px; border-radius: 4px; border: 1px solid var(--line); margin: 40px 0; }
-  .spec-box h3 { font-size: 1.4rem; color: var(--wine); margin-bottom: 8px; }
+  nav{display:flex; align-items:center; justify-content:space-between; padding:22px 32px; max-width:1180px; margin:0 auto; gap:24px;}
+  .logo{font-family:'Cormorant Garamond', serif; font-size:1.7rem; letter-spacing:0.12em;}
+  .nav-links{display:flex; gap:36px; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase;}
+  .nav-links a{position:relative; padding-bottom:4px;}
+  .nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--wine); transition:width .3s ease;}
+  .nav-links a:hover::after, .nav-links a.active::after{width:100%;}
+  .cart-link{position:relative; display:flex; align-items:center;}
+  .cart-link svg{width:20px; height:20px; stroke:var(--charcoal);}
+  .cart-count{position:absolute; top:-6px; right:-8px; background:var(--wine); color:var(--ivory); font-size:0.62rem; font-weight:700; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer;}
+  .menu-toggle svg{width:24px; height:24px; stroke:var(--charcoal);}
+  @media(max-width:820px){
+    .nav-links{display:none; flex-direction:column; position:fixed; inset:0; background:var(--ivory); z-index:100; justify-content:center; align-items:center; gap:32px; font-size:1.2rem;}
+    .nav-links.active{display:flex;}
+    .menu-toggle{display:block;}
+  }
+
+  .eyebrow{font-size:0.76rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--wine); font-weight:600; display:flex; align-items:center; gap:12px; justify-content:center;}
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--wine);}
+
+  .story-hero{text-align:center; padding:80px 0 50px;}
+  .story-hero h1{font-size:clamp(2.4rem,4.6vw,3.6rem); color:var(--wine); line-height:1.12; max-width:16ch; margin:16px auto 0;}
+  .story-hero em{font-style:italic; color:var(--gold);}
+
+  .hero-visual{position:relative; margin:50px 0 80px; border-radius:8px; overflow:hidden; box-shadow:0 40px 80px -35px rgba(28,17,22,0.35);}
+  .hero-visual img{width:100%; height:420px; object-fit:cover; filter:sepia(0.15) saturate(1.05);}
+  .hero-visual::after{content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(28,17,22,0.55), transparent 45%);}
+  .hero-visual .caption{position:absolute; bottom:22px; left:28px; color:var(--ivory); font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.2rem; z-index:2;}
+
+  .content-block{font-size:1.05rem; line-height:1.85; color:var(--charcoal-soft); margin-bottom:20px;}
+  .content-block h2{font-size:clamp(1.7rem,3vw,2.2rem); color:var(--plum); margin:44px 0 14px; font-weight:500;}
+
+  .spec-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px; margin:44px 0;}
+  .spec-box{background:#fff; padding:30px; border-radius:6px; border:1px solid var(--line); transition:border-color .3s ease, transform .3s ease;}
+  .spec-box:hover{border-color:var(--gold); transform:translateY(-4px);}
+  .spec-box .num{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:2rem; color:var(--gold); margin-bottom:10px; display:block;}
+  .spec-box h3{font-size:1.3rem; color:var(--wine); margin-bottom:10px;}
+  .spec-box p{font-size:0.92rem; color:var(--charcoal-soft); line-height:1.7;}
+  @media(max-width:700px){.spec-grid{grid-template-columns:1fr;}}
+
+  .pull-quote{text-align:center; padding:70px 0; margin:60px 0; background:var(--plum); color:var(--gold-soft); border-radius:8px;}
+  .pull-quote blockquote{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:clamp(1.5rem,3vw,2.2rem); max-width:22ch; margin:0 auto; line-height:1.35; padding:0 32px;}
+
+  .cta-block{text-align:center; padding:60px 0 100px;}
+  .btn-primary{background:var(--gold); color:var(--plum); padding:16px 34px; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:700; border-radius:2px; display:inline-block; transition:transform .25s ease, background .25s ease;}
+  .btn-primary:hover{background:var(--gold-soft); transform:translateY(-2px);}
+
+  footer{background:var(--plum); color:rgba(247,242,236,0.6); padding:50px 0 24px; text-align:center; border-top:1px solid rgba(201,166,107,0.18);}
+  footer .logo{color:var(--ivory); margin-bottom:10px; display:block;}
+  footer p{font-size:0.78rem;}
 </style>
 </head>
 <body>
 
 <nav>
   <div class="logo"><a href="index.html">VERRLY</a></div>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="index.html">Home</a>
-    <a href="shop.html">Shop All</a>
-    <a href="fabric.html" style="color: var(--wine); font-weight: 700;">The Fabric</a>
+    <a href="shop.html">Shop</a>
+    <a href="fabric.html" class="active">The Fabric</a>
     <a href="journal.html">Journal</a>
+    <a href="cart.html">Bag</a>
   </div>
+  <a href="cart.html" class="cart-link" aria-label="View bag">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <span class="cart-count" id="cartCount">0</span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
 </nav>
 
 <main class="wrap">
-  <div class="story-hero">
-    <h1>Textile Engineering Focused on <em>Disappearing</em> Comfort.</h1>
+  <div class="story-hero reveal">
+    <div class="eyebrow">The Fabric Story</div>
+    <h1>Textile engineering focused on <em>disappearing</em> comfort.</h1>
   </div>
-  
-  <div class="content-block">
+
+  <div class="hero-visual reveal">
+    <img src="image_5c7045.jpg" alt="Close detail of Verrly signature lace">
+    <div class="caption">Woven, not molded.</div>
+  </div>
+
+  <div class="content-block reveal">
     <p>At Verrly, we believe structure should adapt to skin texture perfectly. Instead of injection-molded thick synthetic fillers, our pieces rely entirely on custom stretch recovery fibers woven directly inside our base fabrics.</p>
-    
+
     <h2>French-Loom Silk Blends</h2>
     <p>Our signature lace wraps adapt organically to accurate body movements without digging or leaving harsh lines. Woven precisely to breathe and shift heat away naturally all day.</p>
-    
-    <div class="spec-box">
-      <h3>Zero Friction Under-Bands</h3>
-      <p>By shifting to advanced bonded micro-tapes instead of traditional thick, exposed elastic borders, Verrly underwear balances weight completely across the ribs.</p>
-    </div>
 
     <h2>Second-Skin Microfiber</h2>
     <p>A moisture-wicking weave composed of ultra-fine flat filaments that block visibility lines completely, making it the perfect layer underneath sheer tailored tops.</p>
   </div>
+
+  <div class="spec-grid">
+    <div class="spec-box reveal">
+      <span class="num">01</span>
+      <h3>Zero Friction Under-Bands</h3>
+      <p>By shifting to advanced bonded micro-tapes instead of traditional thick, exposed elastic borders, Verrly underwear balances weight completely across the ribs.</p>
+    </div>
+    <div class="spec-box reveal">
+      <span class="num">02</span>
+      <h3>Breathable by Design</h3>
+      <p>An open-weave lace structure allows continuous airflow, keeping the fabric cool against skin even through long, warm days.</p>
+    </div>
+    <div class="spec-box reveal">
+      <span class="num">03</span>
+      <h3>Small-Batch Milling</h3>
+      <p>Every roll of fabric is milled in limited runs, reducing offcut waste and keeping our supply chain accountable end to end.</p>
+    </div>
+    <div class="spec-box reveal">
+      <span class="num">04</span>
+      <h3>Recovery-Tested Stretch</h3>
+      <p>Each blend is cycle-tested to hold its shape through hundreds of wears and washes without losing structural recovery.</p>
+    </div>
+  </div>
+
+  <div class="pull-quote reveal">
+    <blockquote>"We didn't want to build a bra that hides the body. We wanted one that disappears into it."</blockquote>
+  </div>
+
+  <div class="cta-block reveal">
+    <a href="shop.html" class="btn-primary">Shop the Fabric</a>
+  </div>
 </main>
 
+<footer>
+  <div class="logo serif">VERRLY</div>
+  <p>© 2026 Verrly. Quiet luxury lingerie.</p>
+</footer>
+
+<script>
+  function updateCartCount(){
+    const cart = JSON.parse(localStorage.getItem('verrly-cart')) || [];
+    const count = cart.reduce((sum,i)=>sum+(i.quantity||1),0);
+    const el = document.getElementById('cartCount');
+    if(el) el.textContent = count;
+  }
+  updateCartCount();
+
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('.reveal');
+  if(reduceMotion){ revealEls.forEach(el=>el.classList.add('in')); }
+  else{
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); } });
+    }, {threshold:0.12});
+    revealEls.forEach(el=>io.observe(el));
+  }
+</script>
 </body>
 </html>
