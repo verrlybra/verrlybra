@@ -298,12 +298,14 @@ const products = [
 render('all');
 updateCartCount();
 
-const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.getElementById('navLinks');
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-});
+if(menuToggle){
+    menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+    });
+}
 
 </script>
 
