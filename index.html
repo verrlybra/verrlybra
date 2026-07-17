@@ -3,53 +3,62 @@
 <head>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Helvetica', sans-serif; overflow: hidden; }
+        body, html { height: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
 
-        /* Background Video */
+        /* Full Page Background Video */
         #bg-video {
-            position: fixed;
-            right: 0; bottom: 0;
-            min-width: 100%; min-height: 100%;
-            z-index: -1;
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             object-fit: cover;
+            z-index: -1;
         }
 
-        /* Spotlight Overlay */
+        /* Container for the Spotlight Content */
         .intro-overlay {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: rgba(0, 0, 0, 0.4); /* Darkens video for better contrast */
+            background: rgba(0, 0, 0, 0.2); /* Subtle dimming for text contrast */
             color: white;
-            animation: fadeIn 2s ease-in-out;
+            text-align: center;
+            animation: fadeIn 2s ease-in;
         }
 
+        /* The Product Spotlight */
         .product-spotlight {
             width: 400px;
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
-            margin-bottom: 20px;
+            max-width: 90%;
+            /* This creates the 'spotlight' glow around your bra image */
+            filter: drop-shadow(0px 0px 30px rgba(255, 255, 255, 0.4));
+            transition: transform 0.5s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        .product-spotlight:hover { transform: scale(1.05); }
+
+        .text-content { margin-top: 30px; }
+        h1 { font-size: 3rem; letter-spacing: 2px; text-transform: uppercase; }
+        p { font-size: 1.2rem; margin-top: 10px; opacity: 0.9; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- Background Video -->
     <video autoplay muted loop id="bg-video">
         <source src="your-video-file.mp4" type="video/mp4">
     </video>
 
-    <!-- Content -->
     <div class="intro-overlay">
-        <img src="product-image.png" class="product-spotlight" alt="Product">
-        <h1>THE LUNA COLLECTION</h1>
-        <p>Crafted for Confidence</p>
+        <!-- Replace 'product-image.png' with your file name -->
+        <img src="product-image.png" class="product-spotlight" alt="Luna Collection Bra">
+        
+        <div class="text-content">
+            <h1>THE LUNA COLLECTION</h1>
+            <p>Crafted for Confidence.</p>
+        </div>
     </div>
 
 </body>
