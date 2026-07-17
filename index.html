@@ -1,64 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Luna Collection</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { height: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
-
-        /* Full Page Background Video */
-        #bg-video {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: -1;
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Container for the Spotlight Content */
-        .intro-overlay {
+        body, html {
+            height: 100%;
+            width: 100%;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #E6D8D8; /* Matches the background of your image */
+            color: #333;
+            overflow: hidden; /* Prevents scrollbars during the intro */
+        }
+
+        /* --- BACKGROUND STYLING --- */
+        /* This creates a sophisticated blurred depth-of-field effect */
+        .bg-visual {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            /* You can replace this gradient with a blurred image if you prefer */
+            background: radial-gradient(circle at center, #f0e5e5 0%, #E6D8D8 50%),
+                        url('https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=2000') no-repeat center center;
+            background-size: cover;
+            filter: blur(8px); /* The blur effect */
+            z-index: 1;
+        }
+
+        /* A slight overlay to ensure text readability */
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(230, 216, 216, 0.3);
+            z-index: 2;
+        }
+
+        /* --- MAIN LAYOUT CONTAINER --- */
+        .main-wrapper {
+            position: relative;
+            z-index: 10; /* Sits on top of background */
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: rgba(0, 0, 0, 0.2); /* Subtle dimming for text contrast */
-            color: white;
             text-align: center;
-            animation: fadeIn 2s ease-in;
+            perspective: 1000px; /* Adds depth for 3D effects */
         }
 
-        /* The Product Spotlight */
-        .product-spotlight {
-            width: 400px;
-            max-width: 90%;
-            /* This creates the 'spotlight' glow around your bra image */
-            filter: drop-shadow(0px 0px 30px rgba(255, 255, 255, 0.4));
+        /* --- UI ELEMENTS: NAVIGATION --- */
+        .top-nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInDown 1s ease-out 0.5s forwards; /* Delayed fade-in */
+            opacity: 0;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #333;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover { opacity: 0.6; }
+
+        /* --- THE PRODUCT SPOTLIGHT --- */
+        .product-container {
+            position: relative;
+            animation: scaleIn 1.2s ease-out forwards; /* Grows and fades in */
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .product-image {
+            max-width: 400px; /* Adjust size as needed */
+            height: auto;
+            /* THE SPOTLIGHT EFFECT: */
+            filter: drop-shadow(0px 15px 35px rgba(0, 0, 0, 0.25)) 
+                    drop-shadow(0px 5px 15px rgba(255, 255, 255, 0.5)); 
             transition: transform 0.5s ease;
         }
 
-        .product-spotlight:hover { transform: scale(1.05); }
+        .product-image:hover {
+            transform: translateY(-10px); /* Subtle hover interaction */
+        }
 
-        .text-content { margin-top: 30px; }
-        h1 { font-size: 3rem; letter-spacing: 2px; text-transform: uppercase; }
-        p { font-size: 1.2rem; margin-top: 10px; opacity: 0.9; }
+        /* --- UI ELEMENTS: TEXT & CTA --- */
+        .text-block {
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out 0.8s forwards; /* Delayed text appearance */
+            opacity: 0;
+        }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            padding: 15px 40px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: #333;
+            border-color: #333;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes scaleIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeInDown {
+            to { opacity: 1; transform: translateY(0); }
+            from { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+            from { transform: translateY(20px); }
+        }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .product-image { max-width: 280px; }
+            .top-nav { padding: 20px; }
+            .nav-links { display: none; } /* Simple hide for mobile demo */
+        }
     </style>
 </head>
 <body>
 
-    <video autoplay muted loop id="bg-video">
-        <source src="your-video-file.mp4" type="video/mp4">
-    </video>
+    <!-- The Blurred Background Visuals -->
+    <div class="bg-visual"></div>
+    <div class="overlay"></div>
 
-    <div class="intro-overlay">
-        <!-- Replace 'product-image.png' with your file name -->
-        <img src="product-image.png" class="product-spotlight" alt="Luna Collection Bra">
+    <!-- The Main Content Wrapper -->
+    <div class="main-wrapper">
         
-        <div class="text-content">
-            <h1>THE LUNA COLLECTION</h1>
-            <p>Crafted for Confidence.</p>
+        <!-- Header UI -->
+        <header class="top-nav">
+            <div class="logo">Luna</div>
+            <nav class="nav-links">
+                <a href="#">New In</a>
+                <a href="#">Collections</a>
+                <a href="#">About</a>
+            </nav>
+        </header>
+
+        <!-- Spotlight Product Section -->
+        <div class="product-container">
+            <!-- Ensure image_0.png is in the same folder -->
+            <img src="image_0.png" alt="Luna Lace Bralette" class="product-image">
         </div>
+
+        <!-- Text & CTA Section -->
+        <div class="text-block">
+            <h1>The Luna Collection</h1>
+            <p>Crafted for Infinite Confidence.</p>
+            <a href="#" class="cta-button">Discover Now</a>
+        </div>
+
     </div>
 
 </body>
