@@ -1,109 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verrly — Quiet Luxury Lingerie</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --plum:#1c1116; --wine:#6b1f2a; --wine-light:#8c3341; --gold:#c9a66b; --gold-soft:#e3d3ae;
-    --ivory:#f7f2ec; --blush:#e9d2ca; --charcoal:#2a2024; --charcoal-soft:#6b6066; --line:rgba(28,17,22,0.12);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--ivory); color:var(--charcoal); font-family:'Manrope', sans-serif; font-weight:400; line-height:1.6; overflow-x:hidden;}
-  h1,h2,h3,.serif{font-family:'Cormorant Garamond', serif; font-weight:500; letter-spacing:0.01em;}
-  a{color:inherit; text-decoration:none;}
-  img{max-width:100%; display:block;}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
-  
-  /* --- Entrance Animation --- */
-  .reveal{opacity:0; transform:translateY(30px); transition:opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);}
-  .reveal.in{opacity:1; transform:translateY(0);}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verrly | Quiet Luxury Lingerie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8f5f2; --text: #1a1a1a; --accent: #c9a66b; --overlay: rgba(255,255,255,0.7);
+            --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; line-height: 1.6; overflow-x: hidden; }
+        
+        /* Typography */
+        h1, h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; line-height: 1.1; }
+        
+        /* Hero Section - The Spotlight */
+        .hero { height: 90vh; display: flex; align-items: center; justify-content: center; position: relative; padding: 0 5%; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, var(--accent), transparent 70%); opacity: 0.15; filter: blur(80px); }
+        .hero-content { z-index: 2; text-align: center; max-width: 800px; }
+        .hero h1 { font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 2rem; }
+        
+        /* Product Cards - Glassmorphism */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; padding: 100px 5%; max-width: 1400px; margin: auto; }
+        .card { background: rgba(255,255,255,0.5); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.05); padding: 20px; transition: var(--transition); }
+        .card:hover { transform: translateY(-15px); border-color: var(--accent); }
+        .img-wrap { overflow: hidden; margin-bottom: 20px; }
+        .img-wrap img { width: 100%; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .card:hover img { transform: scale(1.05); }
 
-  .announce{background:var(--wine); color:var(--gold-soft); text-align:center; font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; padding:10px 16px; font-weight:600;}
-  
-  /* --- Navigation --- */
-  nav{display:flex; align-items:center; justify-content:space-between; padding:22px 32px;}
-  .logo{font-family:'Cormorant Garamond', serif; font-size:1.7rem; letter-spacing:0.12em;}
-  .nav-links{display:flex; gap:36px; font-size:0.82rem; text-transform:uppercase;}
-
-  /* --- Spotlight Hero --- */
-  .hero{position:relative; background:radial-gradient(circle at 50% 50%, #2a2024 0%, #1c1116 70%); color:var(--ivory); padding:120px 32px; overflow:hidden;}
-  .hero-inner{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
-  .hero h1{font-size:clamp(2.6rem, 5.2vw, 4.6rem); line-height:1.05; margin-bottom:20px;}
-  .hero h1 em{color:var(--gold); font-style:italic;}
-  .ribbon-wrap{transition:transform 0.2s ease-out;}
-  .btn-primary{background:var(--gold); color:var(--plum); padding:15px 32px; font-weight:600; text-transform:uppercase; border-radius:2px; display:inline-block;}
-
-  /* --- Features & Glassmorphism --- */
-  .feature-badge{background:rgba(255, 255, 255, 0.05); backdrop-filter:blur(10px); padding:12px 18px; border-radius:4px; border:1px solid rgba(255,255,255,0.1); position:absolute; bottom:20px; left:20px; font-size:0.75rem; text-transform:uppercase; color:var(--ivory);}
-  .product-card{background:#fff; padding:10px; border-radius:6px; transition:transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);}
-  .product-card:hover{transform:translateY(-10px) scale(1.02); box-shadow:0 20px 40px rgba(0,0,0,0.2);}
-  .product-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
-
-  @media(max-width:900px){.hero-inner,.product-grid{grid-template-columns:1fr; text-align:center;}}
-</style>
+        /* Scroll Animations */
+        .reveal { opacity: 0; transform: translateY(60px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
 </head>
 <body>
 
-<div class="announce">Semi-Annual Refresh — 20% off the full collection</div>
+    <section class="hero">
+        <div class="hero-content reveal">
+            <h1>The Art of the <br><i>Second Skin</i></h1>
+            <p>Quiet luxury. Unrivaled support. Designed to disappear.</p>
+        </div>
+    </section>
 
-<header>
-  <nav>
-    <div class="logo">VERRLY</div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Shop</a>
-      <a href="#">Journal</a>
+    <div class="grid">
+        <div class="card reveal">
+            <div class="img-wrap"><img src="image_5c7045.jpg" alt="Luxury Lingerie"></div>
+            <h2>The Signature Bralette</h2>
+            <p>Silk-blend lace for the modern minimalist.</p>
+        </div>
+        <div class="card reveal">
+            <div class="img-wrap"><img src="image_5c7045.jpg" alt="Luxury Lingerie"></div>
+            <h2>The Plunge</h2>
+            <p>Tensor-fabric support without the wire.</p>
+        </div>
+        <div class="card reveal">
+            <div class="img-wrap"><img src="image_5c7045.jpg" alt="Luxury Lingerie"></div>
+            <h2>The Balconette</h2>
+            <p>Sculpted comfort for every day.</p>
+        </div>
     </div>
-  </nav>
-</header>
 
-<section class="hero">
-  <div class="hero-inner">
-    <div>
-      <h1 class="reveal">Support that <em>disappears</em> into the wearing.</h1>
-      <p class="reveal">Verrly designs bras from breathable silk-blend lace — built to feel like nothing at all.</p>
-      <div class="reveal" style="margin-top:30px;"><a href="#" class="btn-primary">Shop Collection</a></div>
-    </div>
-    <div class="ribbon-wrap reveal">
-      <svg viewBox="0 0 420 460" fill="none"><path d="M40 60 C 140 20, 260 20, 360 90" stroke="#c9a66b" stroke-width="2"/></svg>
-    </div>
-  </div>
-</section>
-
-<section style="padding:100px 0;">
-  <div class="wrap">
-    <div class="product-grid">
-      <div class="product-card reveal"><img src="image_5c7045.jpg" alt="Product"><div style="padding:15px;"><h4>The Bralette</h4><p>₹1,999</p></div></div>
-      <div class="product-card reveal"><img src="image_5c7045.jpg" alt="Product"><div style="padding:15px;"><h4>The Plunge</h4><p>₹2,199</p></div></div>
-      <div class="product-card reveal"><img src="image_5c7045.jpg" alt="Product"><div style="padding:15px;"><h4>The Balconette</h4><p>₹2,499</p></div></div>
-    </div>
-  </div>
-</section>
-
-<script>
-  // Mouse-follow Parallax
-  document.addEventListener("mousemove", (e) => {
-    const moveX = (e.clientX - window.innerWidth / 2) * -0.01;
-    const moveY = (e.clientY - window.innerHeight / 2) * -0.01;
-    const ribbon = document.querySelector('.ribbon-wrap');
-    if(ribbon) ribbon.style.transform = `translate(${moveX}px, ${moveY}px)`;
-  });
-
-  // Intersection Observer for Reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('in');
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
-
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
