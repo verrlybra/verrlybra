@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verrly — Archive Edit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#fff; font-family:'Inter Tight', sans-serif; font-weight:500; overscroll-behavior:none; }
+  #scroll-spacer { position:relative; user-select:none; background:#fff; height:500vh; }
+  .fixed { position:fixed; }
+  .pointer-none { pointer-events:none; }
+  .exclude { mix-blend-mode:exclusion; }
+
+  /* entrance animation */
+  @keyframes riseIn { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+  .rise { animation:riseIn 0.6s cubic-bezier(.25,.1,.25,1) both; }
+  @media (prefers-reduced-motion: reduce){ .rise{ animation:none; opacity:1; } }
+
+  /* ---- custom cursor ---- */
+  #cursor{ position:fixed; z-index:50; pointer-events:none; transform:translate(-50%,-50%); mix-blend-mode:exclusion; opacity:0; transition:opacity .2s ease; }
+  @media (pointer:coarse){ #cursor{ display:none; } }
+  @media (max-width:1023px){ #cursor{ display:none; } }
+
+  /* ---- logo ---- */
+  #logo{ position:fixed; z-index:20; pointer-events:none; mix-blend-mode:exclusion; top:16px; left:16px; width:124px; animation-delay:0s; }
+  @media (min-width:640px){ #logo{ width:266px; } }
+  @media (min-width:1024px){ #logo{ top:32px; left:32px; width:355px; } }
+
+  /* ---- caption ---- */
+  #caption{ position:fixed; z-index:20; pointer-events:none; mix-blend-mode:exclusion; left:16px; top:118px; width:calc(100vw - 32px);
+    font-size:12px; line-height:140%; letter-spacing:-0.04em; color:#fff; animation-delay:.3s; }
+  @media (min-width:640px){ #caption{ top:180px; width:calc(50vw - 48px); } }
+  @media (min-width:1024px){ #caption{ left:32px; top:244px; width:692px; } }
+
+  /* ---- header nav ---- */
+  #header-nav{ position:fixed; z-index:20; pointer-events:none; mix-blend-mode:exclusion; display:flex; align-items:center; justify-content:space-between;
+    top:16px; right:16px; height:30px; animation-delay:.15s; }
+  @media (min-width:1024px){ #header-nav{ top:32px; right:32px; width:330px; } }
+  #header-nav .about{ display:none; color:#fff; font-size:15px; text-transform:uppercase; }
+  @media (min-width:1024px){ #header-nav .about{ display:inline; } }
+  #header-nav .nav-right{ display:flex; align-items:center; gap:20px; }
+  @media (min-width:1024px){ #header-nav .nav-right{ gap:50px; } }
+  #header-nav svg.burger{ width:24px; height:24px; }
+  @media (min-width:1024px){ #header-nav svg.burger{ width:30px; height:30px; } }
+  #header-nav .cart{ color:#fff; font-size:13px; white-space:nowrap; }
+  @media (min-width:1024px){ #header-nav .cart{ font-size:15px; } }
+
+  /* ---- product info ---- */
+  #outro-info{ position:fixed; z-index:20; pointer-events:none; mix-blend-mode:exclusion; display:flex; flex-direction:column; align-items:center;
+    left:0; right:0; bottom:48px; animation-delay:.45s; }
+  @media (min-width:1024px){ #outro-info{ left:auto; right:32px; bottom:80px; width:330px; } }
+  #outro-info .top-block{ display:flex; flex-direction:column; align-items:flex-start; width:252px; margin-bottom:12px; }
+  @media (min-width:1024px){ #outro-info .top-block{ width:100%; margin-bottom:32px; } }
+  #outro-info .circle{ position:relative; width:20px; height:20px; margin-bottom:8px; }
+  @media (min-width:1024px){ #outro-info .circle{ width:30px; height:30px; } }
+  #circle-symbol{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; text-transform:uppercase;
+    letter-spacing:-0.04em; font-size:10px; }
+  @media (min-width:1024px){ #circle-symbol{ font-size:15px; } }
+  #outro-info .collection{ color:#fff; text-transform:uppercase; text-align:center; width:100%; font-size:20px; line-height:100%; letter-spacing:-0.04em; }
+  @media (min-width:1024px){ #outro-info .collection{ font-size:30px; } }
+  #outro-info .price{ color:#fff; text-align:center; font-size:60px; line-height:100%; letter-spacing:-0.04em; }
+  @media (min-width:1024px){ #outro-info .price{ font-size:80px; } }
+
+  /* ---- view button ---- */
+  #outro-buy{ position:fixed; z-index:20; pointer-events:none; mix-blend-mode:exclusion; display:flex; align-items:center; justify-content:center;
+    left:16px; right:16px; bottom:60px; height:100px; background:#fff; border-radius:1335px; transform-origin:right bottom; transform:scale(0); }
+  @media (min-width:1024px){ #outro-buy{ left:auto; right:32px; bottom:32px; width:330px; height:174px; } }
+  #outro-buy span{ font-size:72px; letter-spacing:-0.04em; color:#fff; mix-blend-mode:exclusion; }
+  @media (min-width:1024px){ #outro-buy span{ font-size:110px; } }
+
+  /* ---- footer ---- */
+  #outro-footer{ position:fixed; z-index:20; pointer-events:none; mix-blend-mode:exclusion; display:flex; justify-content:space-between;
+    left:16px; right:16px; bottom:24px; opacity:0; }
+  @media (min-width:1024px){ #outro-footer{ right:auto; bottom:32px; gap:80px; justify-content:flex-start; } }
+  #outro-footer span, #outro-footer a{ color:#fff; text-transform:uppercase; font-size:11px; letter-spacing:-0.02em; text-decoration:none; }
+  @media (min-width:1024px){ #outro-footer span, #outro-footer a{ font-size:13px; } }
+
+  /* ---- video ---- */
+  #main-canvas{ position:fixed; pointer-events:none; overflow:hidden; z-index:0; top:220px; left:0; right:0; height:calc(100vh - 220px); opacity:0; transition:opacity .3s ease; }
+  @media (min-width:1024px){ #main-canvas{ top:0; bottom:0; height:auto; } }
+  #main-canvas video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+
+  /* ---- overlay / panel ---- */
+  #outro-overlay{ position:fixed; inset:0; pointer-events:none; z-index:12; background:#fff; opacity:0; }
+  #panel{ position:fixed; inset:0; z-index:10; background:#000; overflow:hidden; transform:translateY(100vh); }
+  #panel-wrapper{ width:100%; padding-top:min(400px, 40vh); padding-bottom:20vh; }
+  .bp-grid{ display:grid; gap:12px; padding:0 12px; }
+  @media (min-width:640px){ .bp-grid{ gap:16px; padding:0 16px; } }
+  @media (min-width:1024px){ .bp-grid{ gap:20px; padding:0 20px; } }
+  .bp-cell{ aspect-ratio:2/3; }
+  .bp-card{ width:100%; height:100%; overflow:hidden; transform:scale(0); will-change:transform; }
+  .bp-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+  @media (prefers-reduced-motion: reduce){ .bp-card{ will-change:auto; } }
+</style>
+</head>
+<body>
+
+<div id="scroll-spacer">
+
+  <div id="cursor">
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="22.75" stroke="white" stroke-width="2.5"/>
+      <path d="M24 13 L27 21 L35 24 L27 27 L24 35 L21 27 L13 24 L21 21 Z" fill="white"/>
+    </svg>
+  </div>
+
+  <a href="index.html" id="logo" class="rise" style="display:block;">
+    <svg viewBox="0 0 355 110" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="70" font-family="'Inter Tight', sans-serif" font-weight="500" font-size="52" letter-spacing="-1" fill="white">VERRLY</text>
+      <circle cx="330" cy="30" r="22" stroke="white" stroke-width="2.5" fill="none"/>
+      <text x="330" y="39" font-family="'Inter Tight', sans-serif" font-weight="500" font-size="24" fill="white" text-anchor="middle">V</text>
+    </svg>
+  </a>
+
+  <div id="caption" class="rise">Cut from second-skin lace and worn until it disappears. Every piece in this edit is made in small batches, built to move with you rather than hold you in place — support that feels like nothing at all.</div>
+
+  <div id="header-nav" class="rise">
+    <span class="about">ABOUT</span>
+    <div class="nav-right">
+      <svg class="burger" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 14H40" stroke="white" stroke-width="2.5"/>
+        <path d="M0 26H40" stroke="white" stroke-width="2.5"/>
+      </svg>
+      <a href="cart.html" class="cart" style="pointer-events:auto; text-decoration:none;">[ CART ]</a>
+    </div>
+  </div>
+
+  <div id="outro-info" class="rise" data-outro-offset="132">
+    <div class="top-block">
+      <div class="circle">
+        <svg viewBox="0 0 40 40" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18.75" stroke="white" stroke-width="2" fill="none"/>
+        </svg>
+        <span id="circle-symbol">8</span>
+      </div>
+      <div class="collection">SIGNATURE EDIT<br>&quot;VERRLY&quot;</div>
+    </div>
+    <div class="price">$68</div>
+  </div>
+
+  <a id="outro-buy" href="shop.html" style="pointer-events:auto; text-decoration:none;">
+    <span>view</span>
+  </a>
+
+  <div id="outro-footer">
+    <span>VERRLY (R) 2026</span>
+    <a href="terms.html" style="pointer-events:auto;">TERMS &amp; PRIVACY</a>
+  </div>
+
+  <div id="main-canvas">
+    <video id="video-left" muted playsinline preload="auto" style="display:none;"
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_39ca84eAE1ODL9hbR5VhoEj8tBf/hf_20260625_154433_532a85d3-dabf-4265-b8bd-19ac6af31842.mp4"></video>
+    <video id="video-right" muted playsinline preload="auto" style="display:block;"
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_39ca84eAE1ODL9hbR5VhoEj8tBf/hf_20260625_154401_a664f076-b971-4557-8728-40ef9ea4c49b.mp4"></video>
+  </div>
+
+  <div id="outro-overlay"></div>
+
+  <div id="panel">
+    <div id="panel-wrapper">
+      <div id="bp-grid" class="bp-grid"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var GALLERY_IMAGE = "image_5c7045.jpg";
+  var GALLERY_FILTERS = [
+    "saturate(1.1) contrast(1.03)",
+    "grayscale(0.55) brightness(1.1)",
+    "sepia(0.3) saturate(1.15) brightness(1.02)",
+    "hue-rotate(-15deg) saturate(0.9) brightness(1.06)",
+    "brightness(0.75) contrast(1.15)",
+    "saturate(1.25) contrast(1.05)",
+    "grayscale(0.3) brightness(1.08) contrast(0.95)",
+    "sepia(0.15) saturate(1.3)",
+    "hue-rotate(10deg) saturate(1.1)",
+    "brightness(0.95) contrast(1.1) saturate(1.05)"
+  ];
+  var GALLERY_IMAGES = GALLERY_FILTERS.map(function(){ return GALLERY_IMAGE; });
+  var CIRCLE_SYMBOLS = ['8','$','^^','%','/'];
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isTouch = window.matchMedia('(pointer: coarse)').matches;
+
+  /* ---------- entrance animation delays ---------- */
+  document.getElementById('logo').style.animationDelay = '0s';
+  document.getElementById('header-nav').style.animationDelay = '.15s';
+  document.getElementById('caption').style.animationDelay = '.3s';
+  document.getElementById('outro-info').style.animationDelay = '.45s';
+
+  /* ---------- custom cursor ---------- */
+  if (!isTouch) {
+    var cursor = document.getElementById('cursor');
+    window.addEventListener('mousemove', function(e){
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursor.style.opacity = '1';
+    });
+  }
+
+  /* ---------- outro-info offset by breakpoint ---------- */
+  var infoEl = document.getElementById('outro-info');
+  function syncOffset(){ infoEl.dataset.outroOffset = window.innerWidth < 640 ? '132' : '166'; }
+  syncOffset();
+  window.addEventListener('resize', syncOffset);
+
+  /* ---------- gallery grid layout ---------- */
+  function buildLayout(count, cols){
+    var rows = [], r = 0, placed = 0;
+    while (placed < count){
+      var a = (r*2 + (r%2)) % cols;
+      var row = new Array(cols).fill(-1);
+      row[a] = placed; placed++;
+      if (r % 3 === 0 && placed < count){
+        var b = (a+2) % cols;
+        if (b === a) b = (a+1) % cols;
+        row[b] = placed; placed++;
+      }
+      rows.push(row);
+      r++;
+    }
+    return rows;
+  }
+
+  function computeCardScale(top, bottom, vh){
+    if (bottom <= 0 || top >= vh) return 0;
+    var enter = Math.min(1, (vh - top) / (vh * 0.6));
+    var exit = Math.min(1, bottom / (vh * 0.4));
+    return Math.max(0, Math.min(enter, exit));
+  }
+
+  function getCols(){
+    var w = window.innerWidth;
+    if (w >= 1024) return 4;
+    if (w >= 640) return 3;
+    return 2;
+  }
+
+  var grid = document.getElementById('bp-grid');
+  var cardEls = [];
+
+  function renderGrid(){
+    var cols = getCols();
+    grid.style.gridTemplateColumns = 'repeat(' + cols + ', 1fr)';
+    grid.innerHTML = '';
+    cardEls = [];
+    var rows = buildLayout(GALLERY_IMAGES.length, cols);
+    var half = cols / 2;
+    rows.forEach(function(row){
+      row.forEach(function(cellValue, colIndex){
+        var cell = document.createElement('div');
+        cell.className = 'bp-cell';
+        if (cellValue === -1){
+          grid.appendChild(cell);
+          return;
+        }
+        var origin = colIndex < half ? 'right bottom' : 'left bottom';
+        var card = document.createElement('div');
+        card.className = 'bp-card';
+        card.style.transformOrigin = origin;
+        var img = document.createElement('img');
+        img.src = GALLERY_IMAGES[cellValue];
+        img.alt = 'Verrly piece ' + (cellValue + 1);
+        img.loading = 'lazy';
+        img.draggable = false;
+        img.style.filter = GALLERY_FILTERS[cellValue % GALLERY_FILTERS.length];
+        card.appendChild(img);
+        cell.appendChild(card);
+        grid.appendChild(cell);
+        cardEls.push(card);
+      });
+    });
+  }
+  renderGrid();
+  window.addEventListener('resize', debounce(renderGrid, 200));
+
+  function debounce(fn, ms){
+    var t;
+    return function(){
+      clearTimeout(t);
+      t = setTimeout(fn, ms);
+    };
+  }
+
+  /* card scaling RAF loop (independent, reads real post-transform rects) */
+  (function cardLoop(){
+    function tick(){
+      requestAnimationFrame(tick);
+      var vh = window.innerHeight;
+      for (var i = 0; i < cardEls.length; i++){
+        var rect = cardEls[i].getBoundingClientRect();
+        var scale = computeCardScale(rect.top, rect.bottom, vh);
+        cardEls[i].style.transform = 'scale(' + scale + ')';
+      }
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  /* ---------- video background ---------- */
+  var canvas = document.getElementById('main-canvas');
+  var leftVideo = document.getElementById('video-left');
+  var rightVideo = document.getElementById('video-right');
+  var loadedLeft = false, loadedRight = false;
+  function checkLoaded(){
+    if (loadedLeft && loadedRight) canvas.style.opacity = '1';
+  }
+  leftVideo.addEventListener('loadeddata', function(){ loadedLeft = true; checkLoaded(); });
+  rightVideo.addEventListener('loadeddata', function(){ loadedRight = true; checkLoaded(); });
+
+  var activeSide = 'right';
+  var mouseX = null;
+
+  if (!isTouch) {
+    window.addEventListener('mousemove', function(e){ mouseX = e.clientX; });
+
+    (function scrubLoop(){
+      function tick(){
+        requestAnimationFrame(tick);
+        if (mouseX === null) return;
+        var rect = canvas.getBoundingClientRect();
+        var width = rect.width;
+        var centerX = rect.left + width / 2;
+        var deadZone = Math.max(30, width * 0.05);
+        var dist = mouseX - centerX;
+
+        var activeVideo, inactiveVideo, progress = 0;
+
+        if (Math.abs(dist) <= deadZone){
+          activeVideo = activeSide === 'left' ? leftVideo : rightVideo;
+          inactiveVideo = activeSide === 'left' ? rightVideo : leftVideo;
+          progress = 0;
+        } else if (dist < 0){
+          activeSide = 'right';
+          activeVideo = rightVideo; inactiveVideo = leftVideo;
+          var leftEdge = rect.left, zoneEdge = centerX - deadZone;
+          var avail = Math.max(1, zoneEdge - leftEdge);
+          progress = Math.min(1, Math.max(0, (zoneEdge - mouseX) / avail));
+        } else {
+          activeSide = 'left';
+          activeVideo = leftVideo; inactiveVideo = rightVideo;
+          var rightEdge = rect.left + width, zoneEdge2 = centerX + deadZone;
+          var avail2 = Math.max(1, rightEdge - zoneEdge2);
+          progress = Math.min(1, Math.max(0, (mouseX - zoneEdge2) / avail2));
+        }
+
+        activeVideo.style.display = 'block';
+        inactiveVideo.style.display = 'none';
+
+        if (activeVideo.duration && !activeVideo.seeking){
+          var target = progress * activeVideo.duration;
+          if (Math.abs(activeVideo.currentTime - target) > 0.01){
+            activeVideo.currentTime = target;
+          }
+        }
+      }
+      requestAnimationFrame(tick);
+    })();
+  } else {
+    if (!reduceMotion){
+      leftVideo.style.display = 'block';
+      rightVideo.style.display = 'none';
+      leftVideo.play().catch(function(){});
+      leftVideo.addEventListener('ended', function(){
+        leftVideo.style.display = 'none';
+        rightVideo.style.display = 'block';
+        rightVideo.currentTime = 0;
+        rightVideo.play().catch(function(){});
+      });
+      rightVideo.addEventListener('ended', function(){
+        rightVideo.style.display = 'none';
+        leftVideo.style.display = 'block';
+        leftVideo.currentTime = 0;
+        leftVideo.play().catch(function(){});
+      });
+    }
+  }
+
+  /* ---------- main scroll controller (panel, phase2, outro) ---------- */
+  var panel = document.getElementById('panel');
+  var wrapper = document.getElementById('panel-wrapper');
+  var spacer = document.getElementById('scroll-spacer');
+  var overlay = document.getElementById('outro-overlay');
+  var buy = document.getElementById('outro-buy');
+  var footer = document.getElementById('outro-footer');
+  var symbolEl = document.getElementById('circle-symbol');
+
+  var maxScroll = 0;
+  var lastSymbolUpdate = 0;
+
+  function recomputeSpacer(){
+    var vh = window.innerHeight;
+    var wrapH = wrapper.scrollHeight;
+    maxScroll = Math.max(0, wrapH - vh);
+    spacer.style.height = (vh + maxScroll + 2 * vh) + 'px';
+  }
+  recomputeSpacer();
+  window.addEventListener('resize', debounce(recomputeSpacer, 200));
+  window.addEventListener('load', recomputeSpacer);
+
+  (function scrollLoop(){
+    function tick(){
+      requestAnimationFrame(tick);
+      var vh = window.innerHeight;
+      var scrollY = window.scrollY;
+
+      var phase1 = Math.min(1, Math.max(0, scrollY / vh));
+      panel.style.transform = 'translateY(' + (vh * (1 - phase1)) + 'px)';
+
+      var phase2Scroll = Math.min(maxScroll, Math.max(0, scrollY - vh));
+      wrapper.style.transform = 'translateY(' + (-phase2Scroll) + 'px)';
+
+      var outroStart = vh + maxScroll;
+      var outroProgress = Math.min(1, Math.max(0, (scrollY - outroStart) / Math.max(1, vh - 100)));
+
+      overlay.style.opacity = String(outroProgress);
+      buy.style.transform = 'scale(' + outroProgress + ')';
+      footer.style.opacity = String(outroProgress);
+
+      var offset = parseFloat(infoEl.dataset.outroOffset || '166');
+      infoEl.style.transform = 'translateY(' + (-offset * outroProgress) + 'px)';
+
+      canvas.style.visibility = scrollY >= vh ? 'hidden' : 'visible';
+
+      var now = performance.now();
+      if (scrollY > 0 && now - lastSymbolUpdate > 80){
+        lastSymbolUpdate = now;
+        symbolEl.textContent = CIRCLE_SYMBOLS[Math.floor(Math.random() * CIRCLE_SYMBOLS.length)];
+      }
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
+</body>
+</html>
