@@ -51,8 +51,8 @@
 
   /* ---- product info ---- */
   #outro-info{ position:fixed; z-index:20; pointer-events:none; mix-blend-mode:exclusion; display:flex; flex-direction:column; align-items:center;
-    left:0; right:0; bottom:48px; animation-delay:.45s; }
-  @media (min-width:1024px){ #outro-info{ left:auto; right:32px; bottom:80px; width:330px; } }
+    left:0; right:0; top:50%; transform:translateY(-50%); animation-delay:.45s; }
+  @media (min-width:1024px){ #outro-info{ left:auto; right:32px; width:330px; } }
   #outro-info .top-block{ display:flex; flex-direction:column; align-items:flex-start; width:252px; margin-bottom:12px; }
   @media (min-width:1024px){ #outro-info .top-block{ width:100%; margin-bottom:32px; } }
   #outro-info .circle{ position:relative; width:20px; height:20px; margin-bottom:8px; }
@@ -197,11 +197,7 @@
     });
   }
 
-  /* ---------- outro-info offset by breakpoint ---------- */
-  var infoEl = document.getElementById('outro-info');
-  function syncOffset(){ infoEl.dataset.outroOffset = window.innerWidth < 640 ? '280' : '260'; }
-  syncOffset();
-  window.addEventListener('resize', syncOffset);
+  /* outro-info stays vertically centered on the right side — no scroll-based offset needed */
 
   /* ---------- gallery grid layout ---------- */
   function buildLayout(count, cols){
@@ -415,9 +411,6 @@
       var buyProgress = Math.max(0, Math.min(1, (outroProgress - 0.35) / 0.65));
       buy.style.transform = 'scale(' + buyProgress + ')';
       footer.style.opacity = String(outroProgress);
-
-      var offset = parseFloat(infoEl.dataset.outroOffset || '166');
-      infoEl.style.transform = 'translateY(' + (-offset * outroProgress) + 'px)';
 
       canvas.style.visibility = scrollY >= vh ? 'hidden' : 'visible';
 
