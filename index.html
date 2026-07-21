@@ -108,7 +108,7 @@
     </svg>
   </div>
 
-  <a href="index1.html" id="logo" class="rise" style="display:block;">
+  <a href="index1.html" id="logo" class="rise" style="display:block; pointer-events:auto;">
     <svg viewBox="0 0 355 110" width="100%" xmlns="http://www.w3.org/2000/svg">
       <text x="0" y="70" font-family="'Inter Tight', sans-serif" font-weight="500" font-size="52" letter-spacing="-1" fill="white">VERRLY</text>
       <circle cx="330" cy="30" r="22" stroke="white" stroke-width="2.5" fill="none"/>
@@ -138,11 +138,6 @@
   <a id="outro-buy" href="shop.html" style="pointer-events:auto; text-decoration:none;">
     <span>view</span>
   </a>
-
-  <div id="outro-footer">
-    <span>VERRLY (R) 2026</span>
-    <a href="terms.html" style="pointer-events:auto;">TERMS &amp; PRIVACY</a>
-  </div>
 
   <div id="main-canvas">
     <video id="video-left" muted playsinline preload="auto" style="display:none;"
@@ -376,7 +371,6 @@
   var spacer = document.getElementById('scroll-spacer');
   var overlay = document.getElementById('outro-overlay');
   var buy = document.getElementById('outro-buy');
-  var footer = document.getElementById('outro-footer');
   var symbolEl = document.getElementById('circle-symbol');
 
   var maxScroll = 0;
@@ -410,7 +404,6 @@
       overlay.style.opacity = String(outroProgress);
       var buyProgress = Math.max(0, Math.min(1, (outroProgress - 0.35) / 0.65));
       buy.style.transform = 'scale(' + buyProgress + ')';
-      footer.style.opacity = String(outroProgress);
 
       canvas.style.visibility = scrollY >= vh ? 'hidden' : 'visible';
 
