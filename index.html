@@ -108,7 +108,7 @@
     </svg>
   </div>
 
-  <a href="#" id="logo" class="rise" style="display:block;" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
+  <a href="index1.html" id="logo" class="rise" style="display:block;">
     <svg viewBox="0 0 355 110" width="100%" xmlns="http://www.w3.org/2000/svg">
       <text x="0" y="70" font-family="'Inter Tight', sans-serif" font-weight="500" font-size="52" letter-spacing="-1" fill="white">VERRLY</text>
       <circle cx="330" cy="30" r="22" stroke="white" stroke-width="2.5" fill="none"/>
@@ -120,13 +120,6 @@
 
   <div id="header-nav" class="rise">
     <span class="about">ABOUT</span>
-    <div class="nav-right">
-      <svg class="burger" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 14H40" stroke="white" stroke-width="2.5"/>
-        <path d="M0 26H40" stroke="white" stroke-width="2.5"/>
-      </svg>
-      <a href="cart.html" class="cart" style="pointer-events:auto; text-decoration:none;">[ CART ]</a>
-    </div>
   </div>
 
   <div id="outro-info" class="rise" data-outro-offset="132">
@@ -206,7 +199,7 @@
 
   /* ---------- outro-info offset by breakpoint ---------- */
   var infoEl = document.getElementById('outro-info');
-  function syncOffset(){ infoEl.dataset.outroOffset = window.innerWidth < 640 ? '132' : '166'; }
+  function syncOffset(){ infoEl.dataset.outroOffset = window.innerWidth < 640 ? '280' : '260'; }
   syncOffset();
   window.addEventListener('resize', syncOffset);
 
@@ -419,7 +412,8 @@
       var outroProgress = Math.min(1, Math.max(0, (scrollY - outroStart) / Math.max(1, vh - 100)));
 
       overlay.style.opacity = String(outroProgress);
-      buy.style.transform = 'scale(' + outroProgress + ')';
+      var buyProgress = Math.max(0, Math.min(1, (outroProgress - 0.35) / 0.65));
+      buy.style.transform = 'scale(' + buyProgress + ')';
       footer.style.opacity = String(outroProgress);
 
       var offset = parseFloat(infoEl.dataset.outroOffset || '166');
